@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="677.0" prefWidth="858.0" styleClass="root" stylesheets="@scratch.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mutify_javafx.Mutify_controller">
+   <children>
+      <TabPane fx:id="MusicTabbbedPane" layoutY="-54.0" prefHeight="764.0" prefWidth="1193.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="Music" text="Main">
+               <content>
+                  <Button mnemonicParsing="false" stylesheets="@scratch.css" text="Button" />
+               </content>
+               <content>
+                  <AnchorPane prefHeight="735.0" prefWidth="1047.0">
+                     <children>
+                        <Button id="transparentbutton1 " layoutX="269.0" layoutY="559.0" mnemonicParsing="false" onAction="#Play_Action" prefHeight="50.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="PLAY" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="PLAY" />
+                           </graphic>
+                        </Button>
+                        <Button id="transparentbutton1 " layoutX="127.0" layoutY="559.0" mnemonicParsing="false" onAction="#Pause_action" prefHeight="50.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="PAUSE" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="PAUSE" />
+                           </graphic>
+                        </Button>
+                        <Button id="transparentbutton1 " layoutX="821.0" layoutY="98.0" mnemonicParsing="false" onAction="#import_music_action" prefHeight="17.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="IMPORT MUSIC" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="DOWNLOAD" />
+                           </graphic>
+                        </Button>
+                        <Button id="transparentbutton1 " layoutX="401.0" layoutY="559.0" mnemonicParsing="false" onAction="#Stop_Action" prefHeight="50.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="STOP" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="STOP" />
+                           </graphic>
+                        </Button>
+                        <Pane id="panel" layoutX="559.0" layoutY="131.0" prefHeight="584.0" prefWidth="621.0" stylesheets="@scratch.css">
+                           <children>
+                              <TableView layoutX="-3.0" layoutY="-1.0" prefHeight="587.0" prefWidth="626.0">
+                                <columns>
+                                  <TableColumn prefWidth="76.0" text="  Number" />
+                                  <TableColumn prefWidth="116.0" text="Music Name" />
+                                    <TableColumn prefWidth="112.0" text="Author" />
+                                    <TableColumn prefWidth="129.0" text="Album" />
+                                    <TableColumn prefWidth="190.0" text="Genre" />
+                                </columns>
+                              </TableView>
+                           </children></Pane>
+                        <Pane id="panel" layoutX="137.0" layoutY="123.0" prefHeight="412.0" prefWidth="389.0" stylesheets="@scratch.css">
+                           <children>
+                              <ImageView fitHeight="364.0" fitWidth="341.0" layoutX="24.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/defaultmusic.png" />
+                                 </image>
+                              </ImageView>
+                           </children></Pane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="Playlist" text="Playlist">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" stylesheets="@scratch.css" text="Button" />
+                        <Label layoutX="146.0" layoutY="115.0" prefHeight="42.0" prefWidth="187.0" text="My Playlist" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="33.0" />
+                           </font>
+                        </Label>
+                        <TableView layoutX="119.0" layoutY="182.0" prefHeight="526.0" prefWidth="1048.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="  Number" />
+                              <TableColumn prefWidth="362.0" text="Playlist Name" />
+                              <TableColumn prefWidth="212.0" text="Date Created" />
+                              <TableColumn prefWidth="394.0" text="Actions" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="367.0" layoutY="124.0" mnemonicParsing="false" onAction="#import_music_action" prefHeight="37.0" prefWidth="135.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="ADD PLAYLIST" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="PLUS" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="Albums" text="Album">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="365.0" layoutY="110.0" prefHeight="50.0" prefWidth="349.0" text="My Albums" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="Settings" text="Settings">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="403.0" layoutY="106.0" prefHeight="33.0" prefWidth="349.0" text="Volume Settings" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="33.0" />
+                           </font>
+                        </Label>
+                        <FontAwesomeIcon fill="WHITE" glyphName="GEAR" layoutX="347.0" layoutY="144.0" size="50" />
+                        <Label layoutX="279.0" layoutY="238.0" prefHeight="42.0" prefWidth="160.0" text="Volume" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="33.0" />
+                           </font>
+                        </Label>
+                        <Slider layoutX="419.0" layoutY="252.0" prefHeight="14.0" prefWidth="443.0" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Pane id="panel" prefHeight="64.0" prefWidth="1193.0" stylesheets="@scratch.css">
+         <children>
+            <Label id="minus" layoutX="1112.0" layoutY="-25.0" onMouseClicked="#mouseMinimizeFunction" onMouseDragEntered="#mouseMinimizeFunction" prefHeight="50.0" prefWidth="28.0" stylesheets="@scratch.css" />
+            <ImageView fitHeight="72.0" fitWidth="176.0" layoutX="551.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/385535536_1343226280407378_1041629022165994371_n-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <Pane id="panel" fx:id="redpanel" layoutX="1151.0" layoutY="14.0" onMouseEntered="#redalert" onMouseExited="#restorecolor" prefHeight="25.0" prefWidth="28.0" stylesheets="@scratch.css">
+               <children>
+                  <Label id="exit" layoutX="4.0" layoutY="1.0" onMouseClicked="#mouseExitFunction" onMouseEntered="#redalert" onMouseExited="#restorecolor" prefHeight="17.0" prefWidth="17.0" stylesheets="@scratch.css" text="Label" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane id="side_panel" prefHeight="710.0" prefWidth="88.0" stylesheets="@scratch.css">
+         <children>
+            <Button layoutX="15.0" layoutY="101.0" mnemonicParsing="false" onAction="#Music_action" prefHeight="50.0" prefWidth="63.0" styleClass="button1" stylesheets="@scratch.css" />
+            <Button layoutX="15.0" layoutY="172.0" mnemonicParsing="false" onAction="#playlist_action" prefHeight="50.0" prefWidth="63.0" styleClass="button2" stylesheets="@scratch.css" />
+            <Button layoutX="15.0" layoutY="248.0" mnemonicParsing="false" onAction="#Albumaction" prefHeight="50.0" prefWidth="63.0" styleClass="button3" stylesheets="@scratch.css" />
+            <Button layoutX="15.0" layoutY="633.0" mnemonicParsing="false" onAction="#settings_action" prefHeight="50.0" prefWidth="63.0" styleClass="button4" stylesheets="@scratch.css" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
