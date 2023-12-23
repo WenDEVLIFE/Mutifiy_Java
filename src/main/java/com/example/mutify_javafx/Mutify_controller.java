@@ -1,14 +1,26 @@
 package com.example.mutify_javafx;
 
+import com.music.page.Mutify.functions.ButtonCell;
+import com.music.page.Mutify.functions.CustomTableCellFactory;
+import com.music.page.Mutify.functions.RadioButtonCell;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.*;
+import java.util.*;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import static com.music.page.Mutify.functions.RadioButtonCell.playMusic;
 
 public class Mutify_controller {
 
@@ -28,14 +40,35 @@ public class Mutify_controller {
     private Tab Playlist;
 
     @FXML
-    private Tab  Albums;
+    private Tab Albums;
 
     // My tabbedPane
     @FXML
     private TabPane MusicTabbbedPane;
 
+    // Tables
+    @FXML
+    private TableView<com.example.mutify_javafx.Music> Musictable1;
 
+    @FXML
+    private TableColumn<com.example.mutify_javafx.Music, String> titleColumn;
+
+    @FXML
+    private TableColumn<com.example.mutify_javafx.Music, String> artistColumn;
+
+    @FXML
+    private TableColumn<com.example.mutify_javafx.Music, String> yearColumn;
+
+    private TableColumn<Music, Boolean> playColumn;
+
+    // This wil Collect the value from the arraylist and store it here
+    private ObservableList <Music> MusicList = FXCollections.observableArrayList();
+
+    private RadioButtonCell RadioButtonCell;
+    private String currentFilePath;
     // Set the stage when initializing the controller
+
+    private static Music newMusicVariable;
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -91,36 +124,121 @@ public class Mutify_controller {
         MusicTabbbedPane.getSelectionModel().select(Playlist);
 
     }
+
     @FXML
         // This function is choose music or import a music on the music table
     void import_music_action(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         configureFileChooser(fileChooser);
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-        if (stage != null) {
-            showFileDialog(fileChooser, stage);
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            String filePath = selectedFile.getAbsolutePath();
+            System.out.println(filePath);
+            currentFilePath = filePath;
+            List<Music> newMusicList = readMusicFromFile(new File(selectedFile.getAbsolutePath()), filePath);
+
+            if (!newMusicList.isEmpty()) {
+                // store the list here on the observerlist
+                MusicList.addAll(newMusicList);
+                Musictable1.setItems(MusicList); // Set the items directly
+            }
         }
+    }
+
+
+    private static MediaPlayer getMediaPlayer(com.example.mutify_javafx.Music music, File file) {
+        Media media = new Media(file.toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+
+        mediaPlayer.setOnEndOfMedia(() -> {
+            System.out.println("Music playback completed: " + music.getTitle());
+            mediaPlayer.dispose(); // Release resources
+        });
+
+        mediaPlayer.setOnError(() -> {
+            System.out.println("Error during music playback: " + mediaPlayer.getError());
+            mediaPlayer.dispose(); // Release resources on error
+        });
+        return mediaPlayer;
+    }
+
+    private List<Music> readMusicFromFile(File selectedFile, String filePath) {
+        List<Music> musicList = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
+            String filename = selectedFile.getName();
+
+            // You might need to adjust how you extract title, artist, and year based on your filename structure
+            String title = filename;
+            String artist = "Unknown Artist";
+            String year = "Unknown Year";
+
+            Music music = new Music(title, artist, year, filePath, filename);
+            musicList.add(music);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return musicList;
     }
 
     private void configureFileChooser(FileChooser fileChooser) {
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("MP3 Files", "*.mp3"),
+                new FileChooser.ExtensionFilter("WAV Files", "*.wav"),
+                new FileChooser.ExtensionFilter("OGG Files", "*.ogg"),
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
     }
+    @FXML
+    public void initialize() {
 
-    private void showFileDialog(FileChooser fileChooser, Stage stage) {
-        var selectedFile = fileChooser.showOpenDialog(stage);
+        System.out.println("Initializing the table...");
 
-        if (selectedFile != null) {
-            System.out.println("Selected File: " + selectedFile.getAbsolutePath());
-            // Handle the selected file as needed
-        } else {
-            System.out.println("File selection canceled.");
-        }
+        titleColumn = new TableColumn<>("Title");
+        titleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
+        titleColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        titleColumn.setPrefWidth(200);
+        titleColumn.getStyleClass().add("table-row-cel");
+
+        artistColumn = new TableColumn<>("Artist");
+        artistColumn.setCellValueFactory(cellData -> cellData.getValue().artistProperty());
+        artistColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        artistColumn.setPrefWidth(100);
+        artistColumn.getStyleClass().add("table-row-cel");
+
+        yearColumn = new TableColumn<>("Year");
+        yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty());
+        yearColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        yearColumn.setPrefWidth(130);
+        yearColumn.getStyleClass().add("table-row-cel");
+
+        TableColumn<Music, String> fileColumn = new TableColumn<>("filepath");
+        fileColumn.setCellValueFactory(cellData -> cellData.getValue().filePathProperty());
+        fileColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        fileColumn.setPrefWidth(130);
+        fileColumn.getStyleClass().add("table-row-cel");
+
+        playColumn = new TableColumn<>("Select");
+        playColumn.setCellFactory(RadioButtonCell.forTableColumn());
+        playColumn.setPrefWidth(100);
+        playColumn.getStyleClass().add("table-row-cel");
+
+        TableColumn<Music, Void> deleteColumn = new TableColumn<>("Delete");
+        deleteColumn.setCellFactory(ButtonCell.forTableColumn("Delete", MusicList, Musictable1));
+        deleteColumn.setPrefWidth(100);
+        deleteColumn.getStyleClass().add("table-row-cel");
+
+        Musictable1.getColumns().addAll(titleColumn, artistColumn, yearColumn, fileColumn, playColumn, deleteColumn);
+
+        System.out.println("Table initialized.");
     }
-
 
     // This are the actions on the button play, pause, restart
     @FXML
@@ -131,11 +249,19 @@ public class Mutify_controller {
     @FXML
     void Play_Action(ActionEvent event) {
         System.out.println("Play Music");
-    }
+        playMusic(newMusicVariable);
 
+    }
     @FXML
     void Stop_Action(ActionEvent event) {
         System.out.println("Stop Music");
     }
+
+    public static void set(Music music){
+        newMusicVariable = music;
+
+        System.out.println("The Location" + newMusicVariable);
+    }
+
 
 }

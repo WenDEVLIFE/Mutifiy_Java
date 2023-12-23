@@ -25,37 +25,16 @@
                     <content>
                         <AnchorPane prefHeight="735.0" prefWidth="1047.0">
                             <children>
-                                <Button id="transparentbutton1 " layoutX="269.0" layoutY="559.0" mnemonicParsing="false" onAction="#Play_Action" prefHeight="50.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="PLAY" textFill="WHITE">
-                                    <graphic>
-                                        <FontAwesomeIcon fill="WHITE" glyphName="PLAY" />
-                                    </graphic>
-                                </Button>
-                                <Button id="transparentbutton1 " layoutX="127.0" layoutY="559.0" mnemonicParsing="false" onAction="#Pause_action" prefHeight="50.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="PAUSE" textFill="WHITE">
-                                    <graphic>
-                                        <FontAwesomeIcon fill="WHITE" glyphName="PAUSE" />
-                                    </graphic>
-                                </Button>
-                                <Button id="transparentbutton1 " layoutX="821.0" layoutY="98.0" mnemonicParsing="false" onAction="#import_music_action" prefHeight="17.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="IMPORT MUSIC" textFill="WHITE">
-                                    <graphic>
-                                        <FontAwesomeIcon fill="WHITE" glyphName="DOWNLOAD" />
-                                    </graphic>
-                                </Button>
-                                <Button id="transparentbutton1 " layoutX="401.0" layoutY="559.0" mnemonicParsing="false" onAction="#Stop_Action" prefHeight="50.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="STOP" textFill="WHITE">
-                                    <graphic>
-                                        <FontAwesomeIcon fill="WHITE" glyphName="STOP" />
-                                    </graphic>
-                                </Button>
-                                <Pane id="panel" layoutX="559.0" layoutY="131.0" prefHeight="584.0" prefWidth="621.0" stylesheets="@scratch.css">
+                                <Button layoutX="234.0" layoutY="580.0" mnemonicParsing="false" onAction="#Play_Action" prefHeight="50.0" prefWidth="82.0" styleClass="buttonplay" stylesheets="@scratch.css" textFill="WHITE" />
+                                <Button layoutX="158.0" layoutY="584.0" mnemonicParsing="false" onAction="#Pause_action" prefHeight="42.0" prefWidth="80.0" styleClass="buttonpaused" stylesheets="@scratch.css" textFill="WHITE" />
+                                <Button layoutX="702.0" layoutY="696.0" mnemonicParsing="false" onAction="#import_music_action" prefHeight="17.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="IMPORT" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="DOWNLOAD" />
+                           </graphic></Button>
+                                <Button layoutX="412.0" layoutY="580.0" mnemonicParsing="false" onAction="#Stop_Action" prefHeight="50.0" prefWidth="88.0" styleClass="buttonrewind" stylesheets="@scratch.css" textFill="WHITE" />
+                                <Pane id="panel" layoutX="558.0" layoutY="105.0" prefHeight="584.0" prefWidth="621.0" stylesheets="@scratch.css">
                                     <children>
-                                        <TableView layoutX="-3.0" layoutY="-1.0" prefHeight="587.0" prefWidth="626.0">
-                                            <columns>
-                                                <TableColumn prefWidth="76.0" text="  Number" />
-                                                <TableColumn prefWidth="116.0" text="Music Name" />
-                                                <TableColumn prefWidth="112.0" text="Author" />
-                                                <TableColumn prefWidth="129.0" text="Album" />
-                                                <TableColumn prefWidth="190.0" text="Genre" />
-                                            </columns>
-                                        </TableView>
+                                        <TableView fx:id="Musictable1" layoutX="-3.0" layoutY="-1.0" prefHeight="587.0" prefWidth="626.0" stylesheets="@scratch.css" />
                                     </children></Pane>
                                 <Pane id="panel" layoutX="137.0" layoutY="123.0" prefHeight="412.0" prefWidth="389.0" stylesheets="@scratch.css">
                                     <children>
@@ -65,6 +44,9 @@
                                             </image>
                                         </ImageView>
                                     </children></Pane>
+                        <Button layoutX="332.0" layoutY="580.0" mnemonicParsing="false" onAction="#Pause_action" prefHeight="50.0" prefWidth="80.0" styleClass="buttonforward" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Slider layoutX="158.0" layoutY="549.0" prefHeight="14.0" prefWidth="347.0" />
+                        <Label layoutX="840.0" layoutY="700.0" prefHeight="17.0" prefWidth="299.0" text="No music or Add some music? Press the import music" textFill="WHITE" />
                             </children>
                         </AnchorPane>
                     </content>

@@ -8,7 +8,10 @@ module com.example.mutify_javafx {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires jlayer;
+    requires javafx.media;
 
     opens com.example.mutify_javafx to javafx.fxml;
     exports com.example.mutify_javafx;
+
 }

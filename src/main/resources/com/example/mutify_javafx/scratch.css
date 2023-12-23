@@ -36,6 +36,7 @@
 #exit:hover {
  -fx-background-image: url('icons/exited.png');
 }
+
 #minus {
   -fx-background-image: url('icons/minimize.png');
    -fx-background-size: cover;
@@ -159,36 +160,161 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+.buttonplay {
+    -fx-background-image: url('icons/play.png');
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+     -fx-background-position: center;
+     -fx-background-size: 34px 34px;
+     -fx-background-repeat: no-repeat;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.416667em 0.666667em 0.416667em 0.666667em; /* Adjust padding as needed */
+}
+
+.buttonplay:hover {
+    -fx-background-image: url('icons/play_focused.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.buttonplay:pressed {
+     -fx-background-image: url('icons/play_clicked.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.buttonpaused {
+    -fx-background-image: url('icons/pause.png');
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+     -fx-background-position: center;
+     -fx-background-size: 34px 34px;
+     -fx-background-repeat: no-repeat;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.416667em 0.666667em 0.416667em 0.666667em; /* Adjust padding as needed */
+}
+
+.buttonpaused:hover {
+    -fx-background-image: url('icons/pause_focused.png');
+     -fx-background-repeat: no-repeat;
+      -fx-background-size: 34px 34px;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.buttonpaused:pressed {
+     -fx-background-image: url('icons/paused_clicked.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.buttonrewind {
+    -fx-background-image: url('icons/rewind.png');
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+     -fx-background-position: center;
+     -fx-background-size: 34px 34px;
+     -fx-background-repeat: no-repeat;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.416667em 0.666667em 0.416667em 0.666667em; /* Adjust padding as needed */
+}
+
+.buttonrewind:hover {
+    -fx-background-image: url('icons/rewind_focused.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.buttonrewind:pressed {
+     -fx-background-image: url('icons/rewind_clicked.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.buttonforward {
+    -fx-background-image: url('icons/forward.png');
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+     -fx-background-position: center;
+     -fx-background-size: 34px 34px;
+     -fx-background-repeat: no-repeat;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.416667em 0.666667em 0.416667em 0.666667em; /* Adjust padding as needed */
+}
+
+.buttonforward:hover {
+    -fx-background-image: url('icons/forward_focused.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.buttonforward:pressed {
+     -fx-background-image: url('icons/forward_clicked.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
 
 /*Tableview CSS*/
-.table-view{
-    -fx-background-color:transparent;
-    -fx-padding:0px;
-    -fx-border-color:linear-gradient(to bottom right, #454545, #1D1D1D);
-    -fx-border-width:2px;
-    -fx-border-radius:8px;
+.table-view {
+    -fx-background-color: transparent;
+    -fx-padding: 0px;
+    -fx-border-color: linear-gradient(to bottom right, #454545, #1D1D1D);
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
 }
-.table-view .table-column{
+
+.table-view .table-column {
     -fx-alignment: CENTER;
 }
-.table-view .column-header-background{
- -fx-background-color: #454545;
-    -fx-background-radius:8px 8px 0px 0px;
+
+.table-view .column-header-background {
+    -fx-background-color: #454545;
+    -fx-background-radius: 8px 8px 0px 0px;
     -fx-background-inset: 0 0 0 0;
 }
-.table-view .column-header, .filter{
-    -fx-background-color:transparent;
-    -fx-size:40px;
-}
-.table-view .column-header .label{
-    -fx-text-fill:#fff;
-    -fx-font-family:"Arial";
-}
-.mutifybuttons {
-   -fx-background-size: 50px 50px; /* Adjust the width and height as needed */
-    -fx-background-repeat: no-repeat;
- -fx-background-position: left center;
 
-     -fx-background-color: #c71585;
+.table-view .column-header, .filter {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #fff;
+    -fx-font-family: "Arial";
+}
+
+/* Customize the background color of the second column cells */
+.table-view .table-row-cell table-cell {
+     -fx-background-color: transparent;
+}
+
+.table-row-cell .table-cell {
+   -fx-background-color: transparent/* Replace with your desired color */
+}
+
+.mutifybuttons {
+    -fx-background-color: linear-gradient(to right, rgba(227, 61, 148), rgba(160,32,240));
+    -fx-background-size: 50px 50px; /* Adjust the width and height as needed */
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left center;
     -fx-background-radius: 16px;
 }

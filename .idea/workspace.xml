@@ -4,7 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52a0268c-304c-4712-b7d6-6583233c48c2" name="Changes" comment="Merge remote-tracking branch 'origin/master'" />
+    <list default="true" id="52a0268c-304c-4712-b7d6-6583233c48c2" name="Changes" comment="Merge remote-tracking branch 'origin/master'">
+      <change afterPath="$PROJECT_DIR$/jlayer-1.0.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Music.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/ButtonCell.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/CustomTableCellFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/RadioButtonCell.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/forward.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/forward_clicked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/forward_focused.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/pause.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/pause_focused.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/paused_clicked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/play.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/play_clicked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/play_focused.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/rewind.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/rewind_clicked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/rewind_focused.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/x2mate.com - nawhij - won't see you (128 kbps).mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/MutifyUi.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/MutifyUi.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/scratch.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/scratch.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,9 +85,9 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Administrator/IdeaProjects/Mutify_JAVAFX/fontawesomefx-8.2.jar",
+    "last_opened_file_path": "C:/Users/Administrator/IdeaProjects/Mutify_JAVAFX/jlayer-1.0.1.jar",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   },
   "keyToStringList": {
@@ -72,6 +97,10 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.music.page.Mutify.functions" />
+      <recent name="com.example.mutify_javafx" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\IdeaProjects\Mutify_JAVAFX\src\main\resources\com\example\mutify_javafx" />
       <recent name="C:\Users\Administrator\IdeaProjects\Mutify_JAVAFX\src\main\resources" />
@@ -207,5 +236,21 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/compiler.xml&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java</url>
+          <line>189</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java</url>
+          <line>257</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
