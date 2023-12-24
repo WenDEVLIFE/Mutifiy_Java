@@ -20,7 +20,7 @@ import java.util.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import static com.music.page.Mutify.functions.RadioButtonCell.playMusic;
+import static com.music.page.Mutify.functions.RadioButtonCell.*;
 
 public class Mutify_controller {
 
@@ -68,7 +68,21 @@ public class Mutify_controller {
     private String currentFilePath;
     // Set the stage when initializing the controller
 
+    // This variable will store the music on the radiobuttoncell
     private static Music newMusicVariable;
+
+    @FXML
+    private  Slider musicplay;
+
+    @FXML
+    private  Slider music_adjustslider;
+
+    @FXML
+    private Label Set_time_music;
+
+    @FXML
+    private Label SetNowPlaying;
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -199,6 +213,8 @@ public class Mutify_controller {
     @FXML
     public void initialize() {
 
+
+
         System.out.println("Initializing the table...");
 
         titleColumn = new TableColumn<>("Title");
@@ -226,7 +242,7 @@ public class Mutify_controller {
         fileColumn.getStyleClass().add("table-row-cel");
 
         playColumn = new TableColumn<>("Select");
-        playColumn.setCellFactory(RadioButtonCell.forTableColumn());
+        playColumn.setCellFactory(RadioButtonCell.forTableColumn(musicplay,Set_time_music,SetNowPlaying,Musictable1,music_adjustslider));
         playColumn.setPrefWidth(100);
         playColumn.getStyleClass().add("table-row-cel");
 
@@ -244,23 +260,50 @@ public class Mutify_controller {
     @FXML
     void Pause_action(ActionEvent event) {
         System.out.println("Pause Music");
+        handlePlayPauseButton();
     }
 
     @FXML
     void Play_Action(ActionEvent event) {
         System.out.println("Play Music");
-        playMusic(newMusicVariable);
+        RadioButtonCell.playMusic(newMusicVariable);
+
 
     }
     @FXML
     void Stop_Action(ActionEvent event) {
         System.out.println("Stop Music");
+
+    }
+
+    @FXML
+    void backwardfunction(ActionEvent event) {
+        System.out.println("Back-ward");
+        backward();
+    }
+
+    @FXML
+    void fowardfunction(ActionEvent event) {
+        System.out.println("Forward");
+
+
+            // Call the forward method
+            forward();
+
     }
 
     public static void set(Music music){
+
+        // Store the music variable from the radiobuttoncell
         newMusicVariable = music;
 
         System.out.println("The Location" + newMusicVariable);
+    }
+    public static void flush_music(com.example.mutify_javafx.Music finalMusic){
+
+        newMusicVariable = finalMusic;
+
+        System.out.println("The music is flush");
     }
 
 

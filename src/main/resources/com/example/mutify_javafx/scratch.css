@@ -318,3 +318,11 @@
     -fx-background-position: left center;
     -fx-background-radius: 16px;
 }
+.slider .track {
+    -fx-background-color: linear-gradient(to right, rgba(227, 61, 148), rgba(160,32,240));
+}
+
+/* Thumb (the draggable part) */
+.slider .thumb {
+    -fx-background-color: #ecf0f1;
+}
