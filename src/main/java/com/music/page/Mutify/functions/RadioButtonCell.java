@@ -15,26 +15,42 @@ import java.io.FileNotFoundException;
 
 
 public class RadioButtonCell extends TableCell<Music, Boolean> {
+    // This is the radio button cell that will be used for the music table view
     private final RadioButton radioButton;
     private static MediaPlayer mediaPlayer;
     private static Slider musicplay;
+
+    private static  Slider musicplay1;
     private static Timeline timeline;
 
     private static Label Set_time_music;
+    private static Label Set_time_music1;
 
     private static Label SetNowPlaying;
+    private static Label SetNowPlaying1;
 
     private static TableView<Music>Musictable1;
 
     private static Slider music_adjustslider;
 
-    public RadioButtonCell(Slider musicplay, Label Set_time_music, Label SetNowPlaying, TableView<Music> Musictable1, Slider music_adjustslider) {
+    private  static  Slider SLIDERMUSIC;
+
+    private  static  Slider SLIDERMUSIC1;
+
+
+    public RadioButtonCell(Slider musicplay, Label Set_time_music, Label SetNowPlaying, TableView<Music> Musictable1, Slider music_adjustslider, Slider SLIDERMUSIC, Slider SLIDERMUSIC1, Label SetNowPlaying1, Slider musicplay1, Label Set_time_music1) {
         // initialize the instance
+        // This will set the radio button to the cell when the cell is created and will set the action for the radio button
         RadioButtonCell.musicplay = musicplay;
         RadioButtonCell.Set_time_music = Set_time_music;
         RadioButtonCell.SetNowPlaying = SetNowPlaying;
         RadioButtonCell. Musictable1 =  Musictable1;
         RadioButtonCell.music_adjustslider = music_adjustslider;
+        RadioButtonCell.SLIDERMUSIC = SLIDERMUSIC;
+        RadioButtonCell.SLIDERMUSIC1 = SLIDERMUSIC1;
+        RadioButtonCell.SetNowPlaying1 = SetNowPlaying1;
+        RadioButtonCell.musicplay1 = musicplay1;
+        RadioButtonCell.Set_time_music1 = Set_time_music1;
         this.radioButton = new RadioButton();
         this.radioButton.setOnAction(event -> {
             Music music = getTableView().getItems().get(getIndex());
@@ -45,6 +61,12 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
                 System.out.println("The value is" + musicplay);
                 System.out.print("The value of setnow"+ SetNowPlaying);
                 System.out.print("The value of volume"+ music_adjustslider);
+                System.out.println(" The value of table"+ Musictable1);
+                System.out.println(" The value of Slider music"+ SLIDERMUSIC);
+                System.out.println(" The value of Slider music1"+ SLIDERMUSIC1);
+                System.out.println(" The value of SetPlaying"+ SetNowPlaying1);
+                System.out.println(" The value of Musicplay1"+ musicplay1);
+                System.out.println(" The value of Set_time_music1"+ Set_time_music1);
                 Mutify_controller.set(music);
             } else {
                 stopMusic();
@@ -53,6 +75,7 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
     }
 
     @Override
+    // This will update the item in the table view and set the graphic to the radio button
     protected void updateItem(Boolean item, boolean empty) {
         super.updateItem(item, empty);
 
@@ -65,6 +88,8 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
 
     // This will play the music
     public static void playMusic(Music newMusicVariable) {
+         // Implement the method logic here to play the music and update
+        // the UI accordingly (e.g. disable/enable buttons) and update the now playing label
         Music music = newMusicVariable;
         String filePath = music.getFilePath();
         System.out.println("Play Music" + filePath);
@@ -81,6 +106,7 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
             mediaPlayer.play();
             System.out.println("Playing music: " + music.getTitle());
             SetNowPlaying.setText("Now Playing:"+music.getTitle());
+            SetNowPlaying1.setText(music.getTitle());
             setupTimeline();
 
         } catch (Exception e) {
@@ -151,6 +177,7 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
                     double totalDuration = mediaPlayer.getTotalDuration().toMillis();
                     double progress = currentTime / totalDuration;
                     musicplay.setValue(progress * 100);
+                    musicplay1.setValue(progress * 100);
 
                     updateDurationLabel(currentTime, totalDuration);
                 }
@@ -166,8 +193,28 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
                 }
             });
 
+            // Listener for volume  music_adjuster slider
+            musicplay1.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (mediaPlayer != null) {
+                    double totalDuration = mediaPlayer.getTotalDuration().toMillis();
+                    double newTime = totalDuration * (newValue.doubleValue() / 100.0);
+                    mediaPlayer.seek(Duration.millis(newTime));
+
+                }
+            });
+
             // Listener for volume  music_adjuster
             music_adjustslider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                double volume = newValue.doubleValue() / 100.0; // Adjust if needed
+                RadioButtonCell.setVolume(volume);
+            });
+
+            SLIDERMUSIC.valueProperty().addListener((observable, oldValue, newValue) -> {
+                double volume = newValue.doubleValue() / 100.0; // Adjust if needed
+                RadioButtonCell.setVolume(volume);
+            });
+
+            SLIDERMUSIC1.valueProperty().addListener((observable, oldValue, newValue) -> {
                 double volume = newValue.doubleValue() / 100.0; // Adjust if needed
                 RadioButtonCell.setVolume(volume);
             });
@@ -191,6 +238,8 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
 
             // Set the new time on the slider
             musicplay.setValue((newTime / totalDuration) * 100);
+
+            musicplay1.setValue((newTime / totalDuration) * 100);
 
             // Seek the media to the new time
             mediaPlayer.seek(Duration.millis(newTime));
@@ -222,7 +271,9 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
 
     public static void updateSliderValue(double value) {
         if (musicplay != null) {
+            // Update the slider position based on the current playback time
             musicplay.setValue(value);
+            musicplay1.setValue(value);
         }
     }
 
@@ -231,6 +282,7 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
         String currentTimeStr = formatTime(currentTime);
         String totalDurationStr = formatTime(totalDuration);
         Set_time_music.setText(currentTimeStr + " / " + totalDurationStr);
+        Set_time_music1.setText(currentTimeStr + " / " + totalDurationStr);
     }
 
     private static String formatTime(double millis) {
@@ -244,11 +296,13 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
 
     public static void setVolume(double volume) {
         if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            // Update the volume of the media player if it's currently playing
             System.out.println("System Media is Playing");
             mediaPlayer.setVolume(volume);
         }
     }
-    public static Callback<TableColumn<Music, Boolean>, TableCell<Music, Boolean>> forTableColumn(Slider musicplay, Label Set_time_music, Label SetNowPlaying, TableView<Music>Musictable1, Slider music_adjustslider) {
-        return param -> new RadioButtonCell(musicplay, Set_time_music, SetNowPlaying, Musictable1,music_adjustslider);
+    public static Callback<TableColumn<Music, Boolean>, TableCell<Music, Boolean>> forTableColumn(Slider musicplay, Label Set_time_music, Label SetNowPlaying, TableView<Music>Musictable1, Slider music_adjustslider, Slider SLIDERMUSIC, Slider SLIDERMUSIC1, Slider musicplay1, Label SetNowPlaying1, Label Set_time_music1) {
+        return param -> new RadioButtonCell(musicplay, Set_time_music, SetNowPlaying, Musictable1,music_adjustslider,SLIDERMUSIC, SLIDERMUSIC1,   SetNowPlaying1, musicplay1,Set_time_music1);
     }
+
 }

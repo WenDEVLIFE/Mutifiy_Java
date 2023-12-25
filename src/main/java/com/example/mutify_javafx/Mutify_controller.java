@@ -15,7 +15,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -42,6 +45,10 @@ public class Mutify_controller {
     @FXML
     private Tab Albums;
 
+
+    @FXML
+    private Tab fullscreenMUziket;
+
     // My tabbedPane
     @FXML
     private TabPane MusicTabbbedPane;
@@ -62,7 +69,7 @@ public class Mutify_controller {
     private TableColumn<Music, Boolean> playColumn;
 
     // This wil Collect the value from the arraylist and store it here
-    private ObservableList <Music> MusicList = FXCollections.observableArrayList();
+    private static ObservableList <Music> MusicList = FXCollections.observableArrayList();
 
     private RadioButtonCell RadioButtonCell;
     private String currentFilePath;
@@ -73,15 +80,38 @@ public class Mutify_controller {
 
     @FXML
     private  Slider musicplay;
+    @FXML
+    private  Slider musicplay1;
 
     @FXML
     private  Slider music_adjustslider;
 
     @FXML
+    private  Slider SLIDERMUSIC;
+
+    @FXML
+    private  Slider SLIDERMUSIC1;
+
+    @FXML
     private Label Set_time_music;
+    @FXML
+    private Label Set_time_music1;
 
     @FXML
     private Label SetNowPlaying;
+
+    @FXML
+    private Label SetNowPlaying1;
+
+    private static String store_filelocations;
+
+    @FXML
+    private TextField locationtype;
+    public static void set(com.example.mutify_javafx.Music music) {
+        // This will set the music variable
+        newMusicVariable = music;
+    }
+
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -91,7 +121,7 @@ public class Mutify_controller {
     void mouseExitFunction(MouseEvent event) {
         // Close the application on a single click
         Platform.exit();
-
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> saveMusicToFile(store_filelocations)));
     }
 
     @FXML
@@ -123,18 +153,21 @@ public class Mutify_controller {
 
     @FXML
     void Music_action(ActionEvent event) {
+        // This will select the music tab when the button is clicked on the side panel button action events
         MusicTabbbedPane.getSelectionModel().select(Music);
 
     }
 
     @FXML
     void settings_action(ActionEvent event) {
+        // This will select the settings tab when the button is clicked on the side panel button action events
         MusicTabbbedPane.getSelectionModel().select(Settings);
 
     }
 
     @FXML
     void playlist_action(ActionEvent event) {
+        // This will select the playlist tab when the button is clicked on the side panel button action events
         MusicTabbbedPane.getSelectionModel().select(Playlist);
 
     }
@@ -158,9 +191,11 @@ public class Mutify_controller {
                 // store the list here on the observerlist
                 MusicList.addAll(newMusicList);
                 Musictable1.setItems(MusicList); // Set the items directly
+
             }
         }
     }
+
 
 
     private static MediaPlayer getMediaPlayer(com.example.mutify_javafx.Music music, File file) {
@@ -179,9 +214,12 @@ public class Mutify_controller {
         return mediaPlayer;
     }
 
+
     private List<Music> readMusicFromFile(File selectedFile, String filePath) {
+        // Read the file and return a list of Music objects from the file contents (if any) or an empty list
         List<Music> musicList = new ArrayList<>();
 
+        // Read the file and return a list of Music objects from the file contents (if any) or an empty list
         try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
             String filename = selectedFile.getName();
 
@@ -190,6 +228,7 @@ public class Mutify_controller {
             String artist = "Unknown Artist";
             String year = "Unknown Year";
 
+            // Create a new Music object and add it to the list of Music objects
             Music music = new Music(title, artist, year, filePath, filename);
             musicList.add(music);
 
@@ -202,6 +241,45 @@ public class Mutify_controller {
         return musicList;
     }
 
+    private void saveMusicToFile(String filelocation) {
+        try {
+            // Convert Music objects to lines and write to the file
+            List<String> lines = MusicList.stream()
+                    .map(music -> String.join(",", music.getTitle(), music.getArtist(), music.getYear(), music.getFilePath()))
+                    .collect(Collectors.toList());
+
+            // Write the lines to the file at the specified location
+            Files.write(Paths.get(store_filelocations), lines);
+            System.out.println("Music saved to file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadMusicFromFile(String filePath) {
+        try {
+            // Read lines from the file
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
+
+            // Parse lines into Music objects
+            List<Music> loadedMusic = lines.stream()
+                    .map(line -> {
+                        String[] parts = line.split(",");
+                        if (parts.length >= 4) {
+                            return new Music(parts[0], parts[1], parts[2], parts[3], "");
+                        }
+                        return null;
+                    })
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+
+            // Add all the loaded Music objects to the observable list and set the items to the table view for display
+            MusicList.addAll(loadedMusic);
+            Musictable1.setItems(MusicList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void configureFileChooser(FileChooser fileChooser) {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("MP3 Files", "*.mp3"),
@@ -210,13 +288,16 @@ public class Mutify_controller {
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
     }
+
     @FXML
     public void initialize() {
+        loadlocation();
+        locationtype.setText(store_filelocations);
 
-
-
+        loadMusicFromFile(store_filelocations);
         System.out.println("Initializing the table...");
 
+        // Initialize the table
         titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         titleColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
@@ -242,15 +323,29 @@ public class Mutify_controller {
         fileColumn.getStyleClass().add("table-row-cel");
 
         playColumn = new TableColumn<>("Select");
-        playColumn.setCellFactory(RadioButtonCell.forTableColumn(musicplay,Set_time_music,SetNowPlaying,Musictable1,music_adjustslider));
+        playColumn.setCellFactory(forTableColumn(
+                musicplay,
+                Set_time_music,
+                SetNowPlaying,
+                Musictable1,
+                music_adjustslider,
+                SLIDERMUSIC,
+                SLIDERMUSIC1,
+                musicplay1,
+                SetNowPlaying1, // Pass the initialized label
+                Set_time_music1  // Pass the initialized label
+        ));
         playColumn.setPrefWidth(100);
         playColumn.getStyleClass().add("table-row-cel");
 
         TableColumn<Music, Void> deleteColumn = new TableColumn<>("Delete");
-        deleteColumn.setCellFactory(ButtonCell.forTableColumn("Delete", MusicList, Musictable1));
+        deleteColumn.setCellFactory(ButtonCell.forTableColumn("Delete", MusicList, Musictable1,store_filelocations));
         deleteColumn.setPrefWidth(100);
         deleteColumn.getStyleClass().add("table-row-cel");
 
+        //Add all the columns to the table  view and set the table view to
+        // the center of the pane layout of the scene builder file (fxml file)
+        // and set the table view to be editable and set the items to the observable list
         Musictable1.getColumns().addAll(titleColumn, artistColumn, yearColumn, fileColumn, playColumn, deleteColumn);
 
         System.out.println("Table initialized.");
@@ -259,25 +354,23 @@ public class Mutify_controller {
     // This are the actions on the button play, pause, restart
     @FXML
     void Pause_action(ActionEvent event) {
+        // Call the pause method
         System.out.println("Pause Music");
         handlePlayPauseButton();
     }
 
     @FXML
     void Play_Action(ActionEvent event) {
+        // Call the play method
         System.out.println("Play Music");
         RadioButtonCell.playMusic(newMusicVariable);
 
 
     }
-    @FXML
-    void Stop_Action(ActionEvent event) {
-        System.out.println("Stop Music");
-
-    }
 
     @FXML
     void backwardfunction(ActionEvent event) {
+        // Call the backward method
         System.out.println("Back-ward");
         backward();
     }
@@ -286,21 +379,85 @@ public class Mutify_controller {
     void fowardfunction(ActionEvent event) {
         System.out.println("Forward");
 
-
             // Call the forward method
             forward();
 
     }
+    @FXML
+    void fullscreenmusic (ActionEvent event) {
+        //This will open the fullscreen music
+        System.out.println("Fullscreen1");
+        MusicTabbbedPane.getSelectionModel().select(fullscreenMUziket);
 
-    public static void set(Music music){
-
-        // Store the music variable from the radiobuttoncell
-        newMusicVariable = music;
-
-        System.out.println("The Location" + newMusicVariable);
     }
-    public static void flush_music(com.example.mutify_javafx.Music finalMusic){
+    @FXML
+    void gobacktosmallmusic (ActionEvent event) {
+        //This will open the fullscreen music
+        System.out.println("Fullscreen2");
+        MusicTabbbedPane.getSelectionModel().select(Music);
 
+
+    }
+
+    @FXML
+    void change_directory_action(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Music File");
+
+        // Show open dialog
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            // Update your UI or perform actions with the selected file
+            String filePath = selectedFile.getAbsolutePath();
+            String fileName = selectedFile.getName();
+
+            // Perform actions with filePath and fileName as needed
+            System.out.println("Selected File Path: " + filePath);
+            System.out.println("Selected File Name: " + fileName);
+
+            // Update store_filelocations
+            store_filelocations = filePath;
+
+            // Update UI
+            locationtype.setText(store_filelocations);
+
+            // Update src.txt file
+            updateSrcFile(fileName, store_filelocations);
+        }
+    }
+
+    private void updateSrcFile(String fileName, String fileLocation) {
+        // Update the src.txt file with the new file information
+        File srcFile = new File("src/main/resources/com/example/mutify_javafx/mymusic1/src.txt");
+
+        try (PrintWriter writer = new PrintWriter(srcFile)) {
+            writer.println(fileLocation);
+            System.out.println("Updated src.txt file with new information");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadlocation() {
+        // This will load the file location from the src.txt file
+        File srcFile = new File("src/main/resources/com/example/mutify_javafx/mymusic1/src.txt");
+
+        try (Scanner scanner = new Scanner(srcFile)) {
+            if (scanner.hasNext()) {
+                // Read the first line of the file and store it in store_filelocations
+                store_filelocations = scanner.nextLine();
+
+                // Optionally, you can set the text of the locationtype TextField
+                locationtype.setText(store_filelocations);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void flush_music(com.example.mutify_javafx.Music finalMusic){
+       // This will flush the music  variable
         newMusicVariable = finalMusic;
 
         System.out.println("The music is flush");

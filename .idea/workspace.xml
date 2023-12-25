@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
+    <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52a0268c-304c-4712-b7d6-6583233c48c2" name="Changes" comment="Merge remote-tracking branch 'origin/master'">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/icons8-fullscreen-focused.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/icons8-list-clicked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/icons8-list-main.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/musicBar.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Main_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Main_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/ButtonCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/ButtonCell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/RadioButtonCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/RadioButtonCell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/MutifyUi.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/MutifyUi.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/scratch.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/scratch.css" afterDir="false" />
@@ -72,7 +78,9 @@
     "last_opened_file_path": "C:/Users/Administrator/IdeaProjects/Mutify_JAVAFX/jlayer-1.0.1.jar",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.build.tools.auto.reload": "ALL",
+    "settings.editor.selected.configurable": "configurable.group.build"
   },
   "keyToStringList": {
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
@@ -220,21 +228,5 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/compiler.xml&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java</url>
-          <line>203</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java</url>
-          <line>276</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

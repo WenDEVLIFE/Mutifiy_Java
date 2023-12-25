@@ -27,13 +27,13 @@
                     <content>
                         <AnchorPane prefHeight="735.0" prefWidth="1047.0">
                             <children>
-                                <Button layoutX="240.0" layoutY="595.0" mnemonicParsing="false" onAction="#Play_Action" prefHeight="50.0" prefWidth="82.0" styleClass="buttonplay" stylesheets="@scratch.css" textFill="WHITE" />
-                                <Button layoutX="154.0" layoutY="599.0" mnemonicParsing="false" onAction="#Pause_action" prefHeight="42.0" prefWidth="80.0" styleClass="buttonpaused" stylesheets="@scratch.css" textFill="WHITE" />
+                                <Button layoutX="219.0" layoutY="595.0" mnemonicParsing="false" onAction="#Play_Action" prefHeight="50.0" prefWidth="82.0" styleClass="buttonplay" stylesheets="@scratch.css" textFill="WHITE" />
+                                <Button layoutX="131.0" layoutY="599.0" mnemonicParsing="false" onAction="#Pause_action" prefHeight="42.0" prefWidth="80.0" styleClass="buttonpaused" stylesheets="@scratch.css" textFill="WHITE" />
                                 <Button layoutX="702.0" layoutY="696.0" mnemonicParsing="false" onAction="#import_music_action" prefHeight="17.0" prefWidth="125.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="IMPORT" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="DOWNLOAD" />
                            </graphic></Button>
-                                <Button layoutX="412.0" layoutY="595.0" mnemonicParsing="false" onAction="#backwardfunction" prefHeight="50.0" prefWidth="88.0" styleClass="buttonrewind" stylesheets="@scratch.css" textFill="WHITE" />
+                                <Button layoutX="381.0" layoutY="595.0" mnemonicParsing="false" onAction="#backwardfunction" prefHeight="50.0" prefWidth="88.0" styleClass="buttonrewind" stylesheets="@scratch.css" textFill="WHITE" />
                                 <Pane id="panel" layoutX="558.0" layoutY="105.0" prefHeight="584.0" prefWidth="621.0" stylesheets="@scratch.css">
                                     <children>
                                         <TableView fx:id="Musictable1" layoutX="-3.0" layoutY="-1.0" prefHeight="587.0" prefWidth="626.0" stylesheets="@scratch.css" />
@@ -46,11 +46,15 @@
                                             </image>
                                         </ImageView>
                                     </children></Pane>
-                        <Button layoutX="332.0" layoutY="595.0" mnemonicParsing="false" onAction="#fowardfunction" prefHeight="50.0" prefWidth="80.0" styleClass="buttonforward" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Button layoutX="301.0" layoutY="595.0" mnemonicParsing="false" onAction="#fowardfunction" prefHeight="50.0" prefWidth="80.0" styleClass="buttonforward" stylesheets="@scratch.css" textFill="WHITE" />
                         <Slider fx:id="musicplay" layoutX="159.0" layoutY="568.0" prefHeight="14.0" prefWidth="347.0" />
                         <Label layoutX="840.0" layoutY="700.0" prefHeight="17.0" prefWidth="299.0" text="No music or Add some music? Press the import music" textFill="WHITE" />
                         <Label fx:id="Set_time_music" layoutX="311.0" layoutY="543.0" prefHeight="25.0" prefWidth="100.0" text="00:00" textFill="WHITE" />
-                        <Label fx:id="SetNowPlaying" layoutX="161.0" layoutY="664.0" prefHeight="25.0" prefWidth="351.0" text="                                " textFill="WHITE" />
+                        <Label fx:id="SetNowPlaying" layoutX="157.0" layoutY="684.0" prefHeight="25.0" prefWidth="351.0" text="                                " textFill="WHITE" />
+                        <Slider fx:id="SLIDERMUSIC" layoutX="159.0" layoutY="651.0" prefHeight="14.0" prefWidth="347.0" />
+                        <FontAwesomeIcon fill="WHITE" glyphName="MUSIC" layoutX="137.0" layoutY="662.0" />
+                        <FontAwesomeIcon fill="WHITE" glyphName="PLAY" layoutX="137.0" layoutY="579.0" />
+                        <Button layoutX="469.0" layoutY="595.0" mnemonicParsing="false" onAction="#fullscreenmusic" prefHeight="50.0" prefWidth="71.0" styleClass="buttonlist" stylesheets="@scratch.css" textFill="WHITE" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -124,11 +128,49 @@
                               <Font name="Verdana" size="33.0" />
                            </font>
                         </Label>
-                        <TextField editable="false" layoutX="519.0" layoutY="407.0" prefHeight="50.0" prefWidth="401.0" />
+                        <TextField fx:id="locationtype" editable="false" layoutX="519.0" layoutY="407.0" prefHeight="50.0" prefWidth="401.0" />
                         <FontAwesomeIcon fill="WHITE" glyphName="DOWNLOAD" layoutX="442.0" layoutY="450.0" size="50" />
+                        <Button layoutX="927.0" layoutY="407.0" mnemonicParsing="false" onAction="#change_directory_action" prefHeight="50.0" prefWidth="160.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="Change Directory" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="DOWNLOAD" />
+                           </graphic>
+                        </Button>
                             </children></AnchorPane>
                     </content>
                 </Tab>
+            <Tab fx:id="fullscreenMUziket" text="fullscreen musis">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane id="panel" layoutX="472.0" layoutY="102.0" prefHeight="412.0" prefWidth="389.0" stylesheets="@scratch.css">
+                           <children>
+                              <ImageView fitHeight="364.0" fitWidth="341.0" layoutX="24.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/defaultmusic.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <ImageView fitHeight="503.0" fitWidth="1096.0" layoutX="97.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/musicBar.png" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="572.0" layoutY="624.0" mnemonicParsing="false" onAction="#Play_Action" prefHeight="50.0" prefWidth="82.0" styleClass="buttonplay" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Button layoutX="446.0" layoutY="628.0" mnemonicParsing="false" onAction="#Pause_action" prefHeight="42.0" prefWidth="80.0" styleClass="buttonpaused" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Button layoutX="681.0" layoutY="628.0" mnemonicParsing="false" onAction="#backwardfunction" prefHeight="50.0" prefWidth="88.0" styleClass="buttonrewind" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Button layoutX="795.0" layoutY="628.0" mnemonicParsing="false" onAction="#fowardfunction" prefHeight="50.0" prefWidth="80.0" styleClass="buttonforward" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Slider fx:id="musicplay1" layoutX="180.0" layoutY="590.0" prefHeight="14.0" prefWidth="973.0" />
+                        <FontAwesomeIcon fill="WHITE" glyphName="MUSIC" layoutX="146.0" layoutY="714.0" size="30" />
+                        <Slider fx:id="SLIDERMUSIC1" layoutX="186.0" layoutY="697.0" prefHeight="14.0" prefWidth="969.0" />
+                        <FontAwesomeIcon fill="WHITE" glyphName="PLAY" layoutX="147.0" layoutY="609.0" size="30" text="" />
+                        <Label fx:id="SetNowPlaying1" layoutX="328.0" layoutY="536.0" prefHeight="25.0" prefWidth="746.0" text="                                " textFill="WHITE" />
+                        <Button layoutX="875.0" layoutY="628.0" mnemonicParsing="false" onAction="#gobacktosmallmusic" prefHeight="50.0" prefWidth="71.0" styleClass="buttonlist" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Label fx:id="Set_time_music1" layoutX="675.0" layoutY="561.0" prefHeight="25.0" prefWidth="100.0" text="00:00" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
             </tabs>
         </TabPane>
         <Pane id="panel" prefHeight="64.0" prefWidth="1193.0" stylesheets="@scratch.css">

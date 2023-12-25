@@ -70,7 +70,7 @@
 }
 
 .button1:pressed {
-     -fx-background-image: url('icons/songs_clicked.png');
+     -fx-background-image: url('src/main/resources/com/example/mutify_javafx/icons/songs_clicked.png');
      -fx-background-repeat: no-repeat;
      -fx-background-position: center;
     -fx-background-color: transparent;
@@ -272,7 +272,32 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+.buttonlist {
+    -fx-background-image: url('icons/icons8-list-main.png');
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+     -fx-background-position: center;
+     -fx-background-size: 34px 34px;
+     -fx-background-repeat: no-repeat;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.416667em 0.666667em 0.416667em 0.666667em; /* Adjust padding as needed */
+}
+.buttonlist:hover {
+    -fx-background-image: url('icons/icons8-fullscreen-focused.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
 
+.buttonlist:pressed {
+     -fx-background-image: url('icons/icons8-list-clicked.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
 /*Tableview CSS*/
 .table-view {
     -fx-background-color: transparent;
@@ -319,7 +344,7 @@
     -fx-background-radius: 16px;
 }
 .slider .track {
-    -fx-background-color: linear-gradient(to right, rgba(227, 61, 148), rgba(160,32,240));
+    -fx-background-color: linear-gradient(236, 236, 236);
 }
 
 /* Thumb (the draggable part) */
