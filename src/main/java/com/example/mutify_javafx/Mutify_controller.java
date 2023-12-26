@@ -1,8 +1,6 @@
 package com.example.mutify_javafx;
 
-import com.music.page.Mutify.functions.ButtonCell;
-import com.music.page.Mutify.functions.CustomTableCellFactory;
-import com.music.page.Mutify.functions.RadioButtonCell;
+import com.music.page.Mutify.functions.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,13 +48,23 @@ public class Mutify_controller {
     @FXML
     private Tab fullscreenMUziket;
 
+    @FXML
+    private Tab CreatePlayList;
+
     // My tabbedPane
     @FXML
     private TabPane MusicTabbbedPane;
 
+
     // Tables
     @FXML
     private TableView<com.example.mutify_javafx.Music> Musictable1;
+
+    @FXML
+    private TableView <PlaylistSection> MusicTable2 ;
+
+    @FXML
+    private TableView<com.example.mutify_javafx.Playlist> PlaylistTable;
 
     @FXML
     private TableColumn<com.example.mutify_javafx.Music, String> titleColumn;
@@ -68,9 +77,13 @@ public class Mutify_controller {
 
     private TableColumn<Music, Boolean> playColumn;
 
+
     // This wil Collect the value from the arraylist and store it here
     private static ObservableList <Music> MusicList = FXCollections.observableArrayList();
 
+    private  static  ObservableList <Playlist> playlist = FXCollections.observableArrayList();
+
+    private  static ObservableList<PlaylistSection> playlistSection = FXCollections.observableArrayList();
     private RadioButtonCell RadioButtonCell;
     private String currentFilePath;
     // Set the stage when initializing the controller
@@ -103,10 +116,20 @@ public class Mutify_controller {
     @FXML
     private Label SetNowPlaying1;
 
+    @FXML
+    private Label PlayListName;
+
     private static String store_filelocations;
 
+    // This are the textfield
     @FXML
     private TextField locationtype;
+
+    @FXML
+    private TextField PlaylistName;
+
+
+
     public static void set(com.example.mutify_javafx.Music music) {
         // This will set the music variable
         newMusicVariable = music;
@@ -122,6 +145,7 @@ public class Mutify_controller {
         // Close the application on a single click
         Platform.exit();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> saveMusicToFile(store_filelocations)));
+
     }
 
     @FXML
@@ -280,7 +304,9 @@ public class Mutify_controller {
             e.printStackTrace();
         }
     }
+
     private void configureFileChooser(FileChooser fileChooser) {
+        // Set the title of the file chooser dialog window
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("MP3 Files", "*.mp3"),
                 new FileChooser.ExtensionFilter("WAV Files", "*.wav"),
@@ -291,8 +317,9 @@ public class Mutify_controller {
 
     @FXML
     public void initialize() {
-        loadlocation();
+        loadPlaylistFromFile();
         locationtype.setText(store_filelocations);
+        loadlocation();
 
         loadMusicFromFile(store_filelocations);
         System.out.println("Initializing the table...");
@@ -348,7 +375,55 @@ public class Mutify_controller {
         // and set the table view to be editable and set the items to the observable list
         Musictable1.getColumns().addAll(titleColumn, artistColumn, yearColumn, fileColumn, playColumn, deleteColumn);
 
-        System.out.println("Table initialized.");
+        // This will initialize the playlist table
+        TableColumn<Playlist, String> PlaylistName = new TableColumn<>("PlaylistName");
+        PlaylistName.setCellValueFactory(cellData -> cellData.getValue().playlistNameProperty());
+        PlaylistName.setCellFactory(column -> CustomTableCellFactory11.cellFactoryForString(column));
+        PlaylistName.setPrefWidth(250);
+
+        TableColumn<Playlist, String> DateCreated = new TableColumn<>("DateCreated");
+        DateCreated.setCellValueFactory(cellData -> cellData.getValue().dateCreatedProperty());
+        DateCreated.setCellFactory(column -> CustomTableCellFactory11.cellFactoryForString(column));
+        DateCreated.setPrefWidth(100);
+
+        TableColumn<Playlist, Void> PlayPlaylist = new TableColumn<>("Play");
+        PlayPlaylist.setCellFactory(ButtonCell1.forTableColumn("Play", playlist,PlaylistTable, PlayListName, CreatePlayList, MusicTabbbedPane));
+        PlayPlaylist.setPrefWidth(140);
+
+        TableColumn<Playlist, Void> DeletePlaylist = new TableColumn<>("Delete");
+        DeletePlaylist.setCellFactory(ButtonCell1.forTableColumn("Delete", playlist,PlaylistTable,PlayListName, CreatePlayList, MusicTabbbedPane));
+        DeletePlaylist.setPrefWidth(140);
+
+        PlaylistTable.getColumns().addAll(PlaylistName, DateCreated, PlayPlaylist, DeletePlaylist);
+
+        // This will initialize the playlist section table
+        TableColumn<PlaylistSection, String> PlaylistName1 = new TableColumn<>("PlaylistName");
+          PlaylistName1.setCellValueFactory(cellData -> cellData.getValue().playlistNameProperty());
+            PlaylistName1.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
+            PlaylistName1.setPrefWidth(200);
+
+        TableColumn<PlaylistSection, String> MusicName = new TableColumn<>("MusicName");
+            MusicName.setCellValueFactory(cellData -> cellData.getValue().musicNameProperty());
+            MusicName.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
+            MusicName.setPrefWidth(200);
+
+        TableColumn<PlaylistSection, String> FileLocation = new TableColumn<>("FileLocation");
+            FileLocation.setCellValueFactory(cellData -> cellData.getValue().fileLocationProperty());
+            FileLocation.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
+            FileLocation.setPrefWidth(200);
+
+        TableColumn<PlaylistSection, Void> PlayMusic = new TableColumn<>("Play");
+            PlayMusic.setCellFactory(ButtonCell2.forTableColumn("Play", playlistSection,MusicTable2));
+            PlayMusic.setPrefWidth(100);
+
+        TableColumn<PlaylistSection, Void> DeleteMusic = new TableColumn<>("Delete");
+            DeleteMusic.setCellFactory(ButtonCell2.forTableColumn("Delete", playlistSection,MusicTable2));
+            DeleteMusic.setPrefWidth(100);
+
+        MusicTable2.getColumns().addAll(PlaylistName1, MusicName, FileLocation, PlayMusic, DeleteMusic);
+
+
+
     }
 
     // This are the actions on the button play, pause, restart
@@ -400,6 +475,81 @@ public class Mutify_controller {
     }
 
     @FXML
+    void CreatePlaylistFunction(javafx.event.ActionEvent event) {
+        // Get playlist name and current date
+        String playlistName = PlaylistName.getText();
+        LocalDate dateCreated = LocalDate.now();
+        if (playlistName.isEmpty()) {
+            // Show an alert if the playlist name is empty
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Playlist Name is Empty");
+            alert.setContentText("Please enter a playlist name.");
+            alert.showAndWait();
+        } else {
+             // make sure you have this filter so that it wont ruin your table display
+            // Read the existing playlist, add the new entry, and update both the TableView and file
+            List<Playlist> existingPlaylist = loadPlaylistFromFile();
+            Playlist newPlaylist = new Playlist(playlistName, dateCreated.toString());
+            existingPlaylist.add(newPlaylist);
+            savePlaylistToFile(existingPlaylist);
+
+            // Refresh the TableView to reflect the changes
+            PlaylistTable.setItems(FXCollections.observableArrayList(existingPlaylist));
+
+            // Optionally, you can clear the input field after adding a playlist
+            PlaylistName.clear();
+        }
+    }
+
+    private List<Playlist> loadPlaylistFromFile() {
+        try {
+            // Read lines from the file
+            List<String> lines = Files.readAllLines(Paths.get("src/main/resources/com/example/mutify_javafx/mymusic1/playlist.txt"));
+
+            // Parse lines into Playlist objects
+            List<Playlist> loadedPlaylist = lines.stream()
+                    .map(line -> {
+                        String[] parts = line.split(",");
+                        if (parts.length >= 2) {
+                            return new Playlist(parts[0], parts[1]);
+                        }
+                        return null;
+                    })
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+
+            // Set the items to the table view for display
+            playlist.clear();
+            playlist.addAll(loadedPlaylist);
+            PlaylistTable.setItems(FXCollections.observableArrayList(playlist));
+
+            return loadedPlaylist;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+
+    private void savePlaylistToFile(List<Playlist> playlist) {
+        try {
+            String filepath = "src/main/resources/com/example/mutify_javafx/mymusic1/playlist.txt";
+            // Format the playlist entries as strings
+            List<String> lines = playlist.stream()
+                    .map(p -> String.join(",", p.getPlaylistName(), p.getDateCreated()))
+                    .collect(Collectors.toList());
+
+            Files.write(Paths.get(filepath), lines);
+            System.out.println("Playlist saved to file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @FXML
     void change_directory_action(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Music File");
@@ -439,7 +589,7 @@ public class Mutify_controller {
         }
     }
 
-    public void loadlocation() {
+     public void loadlocation() {
         // This will load the file location from the src.txt file
         File srcFile = new File("src/main/resources/com/example/mutify_javafx/mymusic1/src.txt");
 

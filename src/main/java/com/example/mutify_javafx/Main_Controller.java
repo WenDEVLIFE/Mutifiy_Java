@@ -67,7 +67,7 @@ public class Main_Controller {
             AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
             AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
 
-            // Set up mouse event handlers for dragging the stage around (continued)  
+            // Set up mouse event handlers for dragging the stage around (continued)
             scene.setOnMousePressed(event -> {
                 xOffset.set(event.getSceneX());
                 yOffset.set(event.getSceneY());
@@ -94,6 +94,7 @@ public class Main_Controller {
         }
     }
 
+     // This method is used to load the main UI of the application
     private void initStage(Parent root) {
         Scene scene = new Scene(root);
         stage.initStyle(StageStyle.UNDECORATED);

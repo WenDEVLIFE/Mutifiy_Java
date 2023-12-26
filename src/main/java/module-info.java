@@ -13,5 +13,7 @@ module com.example.mutify_javafx {
 
     opens com.example.mutify_javafx to javafx.fxml;
     exports com.example.mutify_javafx;
+    exports com.music.page.Mutify.functions;
+    opens com.music.page.Mutify.functions to javafx.fxml;
 
 }

@@ -59,11 +59,12 @@ public class ButtonCell extends TableCell<Music, Void> {
             setGraphic(button);
         }
     }
-
+     // Create a button cell for the table column with the given action (e.g., play or delete) and the Music list
     public static Callback<TableColumn<Music, Void>, TableCell<Music, Void>> forTableColumn(String action, ObservableList<Music> MusicList, TableView<Music> Musictable1, String store_filelocations) {
         return param -> new ButtonCell(action, MusicList, Musictable1,store_filelocations);
     }
 
+    // Save the Music list to the file after removing a Music from the list
     private void saveMusicToFile(String filePath) {
         try {
             // Convert Music objects to lines and write to the file

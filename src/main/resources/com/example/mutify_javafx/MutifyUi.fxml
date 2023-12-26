@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -64,24 +63,32 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
                                 <Button mnemonicParsing="false" stylesheets="@scratch.css" text="Button" />
-                                <Label layoutX="146.0" layoutY="115.0" prefHeight="42.0" prefWidth="187.0" text="My Playlist" textFill="WHITE">
+                                <Label layoutX="757.0" layoutY="114.0" prefHeight="42.0" prefWidth="187.0" text="My Playlist" textFill="WHITE">
                                     <font>
                                         <Font name="Verdana" size="33.0" />
                                     </font>
                                 </Label>
-                                <TableView layoutX="119.0" layoutY="182.0" prefHeight="526.0" prefWidth="1048.0">
-                                    <columns>
-                                        <TableColumn prefWidth="75.0" text="  Number" />
-                                        <TableColumn prefWidth="362.0" text="Playlist Name" />
-                                        <TableColumn prefWidth="212.0" text="Date Created" />
-                                        <TableColumn prefWidth="394.0" text="Actions" />
-                                    </columns>
-                                </TableView>
-                                <Button layoutX="367.0" layoutY="124.0" mnemonicParsing="false" onAction="#import_music_action" prefHeight="37.0" prefWidth="135.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="ADD PLAYLIST" textFill="WHITE">
-                                    <graphic>
-                                        <FontAwesomeIcon fill="WHITE" glyphName="PLUS" />
-                                    </graphic>
-                                </Button>
+                                <TableView fx:id="PlaylistTable" layoutX="535.0" layoutY="179.0" prefHeight="526.0" prefWidth="630.0" />
+                        <Pane id="panel" layoutX="113.0" layoutY="181.0" prefHeight="522.0" prefWidth="389.0" stylesheets="@scratch.css">
+                           <children>
+                              <Label layoutX="58.0" layoutY="33.0" prefHeight="42.0" prefWidth="273.0" text="Create Playlist" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="33.0" />
+                                 </font>
+                              </Label>
+                                      <Button layoutX="123.0" layoutY="460.0" mnemonicParsing="false" onAction="#CreatePlaylistFunction" prefHeight="37.0" prefWidth="135.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="ADD PLAYLIST" textFill="WHITE">
+                                          <graphic>
+                                              <FontAwesomeIcon fill="WHITE" glyphName="PLUS" />
+                                          </graphic>
+                                      </Button>
+                              <TextField fx:id="PlaylistName" layoutX="42.0" layoutY="172.0" prefHeight="50.0" prefWidth="306.0" />
+                              <Label layoutX="48.0" layoutY="116.0" prefHeight="42.0" prefWidth="273.0" text="Playlist name" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="23.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
                             </children>
                         </AnchorPane>
                     </content>
@@ -169,6 +176,29 @@
                         <Label fx:id="Set_time_music1" layoutX="675.0" layoutY="561.0" prefHeight="25.0" prefWidth="100.0" text="00:00" textFill="WHITE" />
                      </children>
                   </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="CreatePlayList" text="playlistdislay">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="152.0" layoutY="134.0" prefHeight="42.0" prefWidth="259.0" text="Playlist Name:" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="33.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PlayListName" layoutX="411.0" layoutY="134.0" prefHeight="42.0" prefWidth="259.0" text="Null" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="33.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="MusicTable2" layoutX="129.0" layoutY="183.0" prefHeight="526.0" prefWidth="1030.0" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="AlbumDisplay">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
             </tabs>

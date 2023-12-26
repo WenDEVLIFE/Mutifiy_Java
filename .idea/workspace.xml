@@ -5,17 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52a0268c-304c-4712-b7d6-6583233c48c2" name="Changes" comment="Merge remote-tracking branch 'origin/master'">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/icons8-fullscreen-focused.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/icons8-list-clicked.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/icons8-list-main.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/icons/musicBar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Playlist.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/PlaylistSection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/ButtonCell1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/ButtonCell2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/CustomTableCellFactory11.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/CustomTableCellFactory2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/playlist.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/mymusic1/playlist.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Main_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Main_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/ButtonCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/ButtonCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/GoToNextPage.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/RadioButtonCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/RadioButtonCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/MutifyUi.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/MutifyUi.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/scratch.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/scratch.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/mymusic1/music2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/mymusic1/music2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +79,7 @@
     "JUnit.com.example.mutify_javafx in Mutify_JAVAFX.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -107,7 +115,7 @@
       <module name="Mutify_JAVAFX" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.mutify_javafx.*" />
+          <option name="PATTERN" value="com.music.page.Mutify.functions.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -120,7 +128,7 @@
       <module name="Mutify_JAVAFX" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.mutify_javafx.*" />
+          <option name="PATTERN" value="com.music.page.Mutify.functions.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -132,7 +140,7 @@
       <module name="Mutify_JAVAFX" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.mutify_javafx.*" />
+          <option name="PATTERN" value="com.music.page.Mutify.functions.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

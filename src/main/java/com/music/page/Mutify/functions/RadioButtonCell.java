@@ -51,12 +51,16 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
         RadioButtonCell.SetNowPlaying1 = SetNowPlaying1;
         RadioButtonCell.musicplay1 = musicplay1;
         RadioButtonCell.Set_time_music1 = Set_time_music1;
+
+        // This will set the radio button to the cell when the cell is created and will set the action for the radio button
         this.radioButton = new RadioButton();
         this.radioButton.setOnAction(event -> {
             Music music = getTableView().getItems().get(getIndex());
             String filePath = music.getFilePath();
             System.out.println("Radio button clicked for: " + filePath);
             if (radioButton.isSelected()) {
+
+                // Play action for the radio button when it is selected and will set the action for the radio button
                 System.out.println("The Set time value is"+ Set_time_music);
                 System.out.println("The value is" + musicplay);
                 System.out.print("The value of setnow"+ SetNowPlaying);
@@ -68,7 +72,9 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
                 System.out.println(" The value of Musicplay1"+ musicplay1);
                 System.out.println(" The value of Set_time_music1"+ Set_time_music1);
                 Mutify_controller.set(music);
+
             } else {
+                // Stop action for the radio button when it is not selected and will set the action for the radio button
                 stopMusic();
             }
         });
