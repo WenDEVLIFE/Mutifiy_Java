@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -91,6 +93,10 @@ public class Mutify_controller {
     // This variable will store the music on the radiobuttoncell
     private static Music newMusicVariable;
 
+    private static String fielocationsmusic;
+
+    private static String titlemusic;
+
     @FXML
     private  Slider musicplay;
     @FXML
@@ -129,11 +135,25 @@ public class Mutify_controller {
     private TextField PlaylistName;
 
 
+    @FXML
+    private ComboBox<String> AlbumCombo;
 
-    public static void set(com.example.mutify_javafx.Music music) {
+
+    @FXML
+    private ComboBox<String> PlaylistCombox;
+
+    public static void set(com.example.mutify_javafx.Music music , String filepath , String title) {
         // This will set the music variable
         newMusicVariable = music;
+        fielocationsmusic = filepath;
+        titlemusic = title;
+
+        System.out.println("The music is set" + newMusicVariable);
+        System.out.println("The music is filelocation" + fielocationsmusic);
+        System.out.println("The music is title" + titlemusic);
+
     }
+
 
 
     public void setStage(Stage stage) {
@@ -317,10 +337,12 @@ public class Mutify_controller {
 
     @FXML
     public void initialize() {
+        populateComboBox();
         loadPlaylistFromFile();
+
         locationtype.setText(store_filelocations);
         loadlocation();
-
+        loadPlaylistSectionFromFile();
         loadMusicFromFile(store_filelocations);
         System.out.println("Initializing the table...");
 
@@ -412,12 +434,12 @@ public class Mutify_controller {
             FileLocation.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
             FileLocation.setPrefWidth(200);
 
-        TableColumn<PlaylistSection, Void> PlayMusic = new TableColumn<>("Play");
-            PlayMusic.setCellFactory(ButtonCell2.forTableColumn("Play", playlistSection,MusicTable2));
+        TableColumn<PlaylistSection, Void> PlayMusic = new TableColumn<>("Open it on Music Player");
+            PlayMusic.setCellFactory(ButtonCell2.forTableColumn("Open it on Music Player", playlistSection,MusicTable2, MusicTabbbedPane, fullscreenMUziket));
             PlayMusic.setPrefWidth(100);
 
         TableColumn<PlaylistSection, Void> DeleteMusic = new TableColumn<>("Delete");
-            DeleteMusic.setCellFactory(ButtonCell2.forTableColumn("Delete", playlistSection,MusicTable2));
+            DeleteMusic.setCellFactory(ButtonCell2.forTableColumn("Delete", playlistSection,MusicTable2, MusicTabbbedPane, fullscreenMUziket));
             DeleteMusic.setPrefWidth(100);
 
         MusicTable2.getColumns().addAll(PlaylistName1, MusicName, FileLocation, PlayMusic, DeleteMusic);
@@ -613,5 +635,114 @@ public class Mutify_controller {
         System.out.println("The music is flush");
     }
 
+    private void populateComboBox() {
+        ObservableList<String> playlistNames = FXCollections.observableArrayList();
+
+               // Read the file and populate the ComboBox with the playlist names
+        try (BufferedReader reader = new BufferedReader(new FileReader("src\\main\\resources\\com\\example\\mutify_javafx\\mymusic1\\playlist.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Assuming each line in the file contains a playlist name
+                String[] parts = line.split(",");
+                if (parts.length > 0) {
+                    playlistNames.add(parts[0].trim());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();  // Handle the exception appropriately in your application
+        }
+
+        // Set the items in the ComboBox
+        PlaylistCombox.setItems(playlistNames);
+    }
+    @FXML
+    void Savepllaylistinfo(ActionEvent event) {
+        String selectedPlaylistName = PlaylistCombox.getSelectionModel().getSelectedItem();
+
+        if (selectedPlaylistName != null) {
+            // Get the corresponding Playlist object
+            Playlist selectedPlaylist = findPlaylistByName(selectedPlaylistName);
+
+            if (selectedPlaylist != null) {
+                // Now you have access to the Playlist details
+                String playlistName = selectedPlaylist.getPlaylistName();
+                String musicName = titlemusic;  // Assuming titlemusic is a field in your controller
+                String fileLocation = fielocationsmusic;  // Assuming fielocationsmusic is a field in your controller
+
+                // Implement your save logic here, for example, print the details
+                System.out.println("Saving Playlist Info:");
+                System.out.println("Playlist Name: " + playlistName);
+                System.out.println("Music Name: " + musicName);
+                System.out.println("File Location: " + fileLocation);
+                saveDetailsToFile(playlistName, musicName, fileLocation);
+            }
+        }
+    }
+
+    // Method to find a Playlist by name
+    private Playlist findPlaylistByName(String playlistName) {
+        for (Playlist playlist : this.playlist) {
+            if (playlist.getPlaylistName().equals(playlistName)) {
+                return playlist;
+            }
+        }
+        return null;
+    }
+
+    private void saveDetailsToFile(String playlistName, String musicName, String fileLocation) {
+        try {
+            // Specify the file path where you want to save the details
+            Path filePath = Path.of("src/main/resources/com/example/mutify_javafx/mymusic1/saved_details.txt");
+
+            // Create or append to the file
+            try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+                // Write the details to the file
+                writer.write("Playlist Name: " + playlistName + "\n");
+                writer.write("Music Name: " + musicName + "\n");
+                writer.write("File Location: " + fileLocation + "\n\n");
+            }
+
+            System.out.println("Details saved to file.");
+        } catch (IOException e) {
+            e.printStackTrace();  // Handle the exception appropriately in your application
+        }
+    }
+
+
+
+    public void loadPlaylistSectionFromFile() {
+        try {
+            // Read lines from the file
+            Path filePath = Path.of("src/main/resources/com/example/mutify_javafx/mymusic1/saved_details.txt");
+            List<String> lines = Files.readAllLines(filePath);
+
+            // Parse lines into PlaylistSection objects
+            List<PlaylistSection> loadedPlaylistSection = new ArrayList<>();
+
+            for (int i = 0; i < lines.size(); i += 4) {
+                String playlistNameLine = lines.get(i);
+                String musicNameLine = lines.get(i + 1);
+                String fileLocationLine = lines.get(i + 2);
+
+                // Assuming the lines are in the format "Playlist Name: <name>"
+                String playlistName = playlistNameLine.substring("Playlist Name: ".length()).trim();
+                // Assuming the lines are in the format "Music Name: <name>"
+                String musicName = musicNameLine.substring("Music Name: ".length()).trim();
+                // Assuming the lines are in the format "File Location: <location>"
+                String fileLocation = fileLocationLine.substring("File Location: ".length()).trim();
+
+                PlaylistSection playlistSection = new PlaylistSection(playlistName, musicName, fileLocation);
+                loadedPlaylistSection.add(playlistSection);
+            }
+
+            // Set the items to the table view for display
+            playlistSection.clear();
+            playlistSection.addAll(loadedPlaylistSection);
+            MusicTable2.setItems(FXCollections.observableArrayList(playlistSection));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -59,6 +59,7 @@ public class Main_Controller {
             musicStage.setTitle("Mutify");
             musicStage.setScene(scene);
 
+
             Image icon = new Image(getClass().getResourceAsStream("icons/410623575_1822184534885870_6495627393933065105_n-removebg-preview.png"));
             musicStage.getIcons().add(icon);
             musicStage.show();
@@ -95,13 +96,5 @@ public class Main_Controller {
     }
 
      // This method is used to load the main UI of the application
-    private void initStage(Parent root) {
-        Scene scene = new Scene(root);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Mutify");
-        stage.setScene(scene);
-        Image icon = new Image(getClass().getResourceAsStream("icons/image-from-rawpixel-id-6952101-jpeg-removebg-preview.png"));
-        stage.getIcons().add(icon);
-        stage.show();
-    }
+
 }

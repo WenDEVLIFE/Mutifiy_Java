@@ -1,5 +1,6 @@
 package com.music.page.Mutify.functions;
 
+import com.example.mutify_javafx.Mutify_controller;
 import com.example.mutify_javafx.Playlist;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 public class ButtonCell1 extends TableCell<Playlist, Void> {
     private final Button button;
@@ -37,9 +39,9 @@ public class ButtonCell1 extends TableCell<Playlist, Void> {
                 System.out.println("The value of CreatePlayList is " + CreatePlayList);
                 System .out.println("the value of " + PlaylistTable);
                 PlayListName.setText(playlist1.getPlaylistName());
-
-                    MusicTabbbedPane.getSelectionModel().select(CreatePlayList);
-
+                MusicTabbbedPane.getSelectionModel().select(CreatePlayList);
+                String playlistname = PlayListName.getText();
+         
                 System.out.println("Play button clicked for: " + playlist1.getPlaylistName());
 
             } else if (action.equals("Delete")) {

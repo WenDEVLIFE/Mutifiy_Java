@@ -147,7 +147,7 @@
                 </Tab>
             <Tab fx:id="fullscreenMUziket" text="fullscreen musis">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane fx:id="PlaylistCombo" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Pane id="panel" layoutX="472.0" layoutY="102.0" prefHeight="412.0" prefWidth="389.0" stylesheets="@scratch.css">
                            <children>
@@ -163,17 +163,21 @@
                               <Image url="@icons/musicBar.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="572.0" layoutY="624.0" mnemonicParsing="false" onAction="#Play_Action" prefHeight="50.0" prefWidth="82.0" styleClass="buttonplay" stylesheets="@scratch.css" textFill="WHITE" />
-                        <Button layoutX="446.0" layoutY="628.0" mnemonicParsing="false" onAction="#Pause_action" prefHeight="42.0" prefWidth="80.0" styleClass="buttonpaused" stylesheets="@scratch.css" textFill="WHITE" />
-                        <Button layoutX="681.0" layoutY="628.0" mnemonicParsing="false" onAction="#backwardfunction" prefHeight="50.0" prefWidth="88.0" styleClass="buttonrewind" stylesheets="@scratch.css" textFill="WHITE" />
-                        <Button layoutX="795.0" layoutY="628.0" mnemonicParsing="false" onAction="#fowardfunction" prefHeight="50.0" prefWidth="80.0" styleClass="buttonforward" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Button layoutX="412.0" layoutY="628.0" mnemonicParsing="false" onAction="#Play_Action" prefHeight="50.0" prefWidth="82.0" styleClass="buttonplay" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Button layoutX="272.0" layoutY="628.0" mnemonicParsing="false" onAction="#Pause_action" prefHeight="42.0" prefWidth="80.0" styleClass="buttonpaused" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Button layoutX="557.0" layoutY="628.0" mnemonicParsing="false" onAction="#backwardfunction" prefHeight="50.0" prefWidth="88.0" styleClass="buttonrewind" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Button layoutX="685.0" layoutY="628.0" mnemonicParsing="false" onAction="#fowardfunction" prefHeight="50.0" prefWidth="80.0" styleClass="buttonforward" stylesheets="@scratch.css" textFill="WHITE" />
                         <Slider fx:id="musicplay1" layoutX="180.0" layoutY="590.0" prefHeight="14.0" prefWidth="973.0" />
                         <FontAwesomeIcon fill="WHITE" glyphName="MUSIC" layoutX="146.0" layoutY="714.0" size="30" />
                         <Slider fx:id="SLIDERMUSIC1" layoutX="186.0" layoutY="697.0" prefHeight="14.0" prefWidth="969.0" />
                         <FontAwesomeIcon fill="WHITE" glyphName="PLAY" layoutX="147.0" layoutY="609.0" size="30" text="" />
                         <Label fx:id="SetNowPlaying1" layoutX="328.0" layoutY="536.0" prefHeight="25.0" prefWidth="746.0" text="                                " textFill="WHITE" />
-                        <Button layoutX="875.0" layoutY="628.0" mnemonicParsing="false" onAction="#gobacktosmallmusic" prefHeight="50.0" prefWidth="71.0" styleClass="buttonlist" stylesheets="@scratch.css" textFill="WHITE" />
+                        <Button layoutX="811.0" layoutY="628.0" mnemonicParsing="false" onAction="#gobacktosmallmusic" prefHeight="50.0" prefWidth="71.0" styleClass="buttonlist" stylesheets="@scratch.css" textFill="WHITE" />
                         <Label fx:id="Set_time_music1" layoutX="675.0" layoutY="561.0" prefHeight="25.0" prefWidth="100.0" text="00:00" textFill="WHITE" />
+                        <ComboBox fx:id="PlaylistCombox" layoutX="897.0" layoutY="628.0" onAction="#Savepllaylistinfo" prefWidth="150.0" />
+                        <ComboBox fx:id="AlbumCombo" layoutX="897.0" layoutY="666.0" prefWidth="150.0" />
+                        <Label layoutX="1060.0" layoutY="632.0" text="Add to Playlist" textFill="WHITE" />
+                        <Label layoutX="1060.0" layoutY="670.0" text="Add to Albums" textFill="WHITE" />
                      </children>
                   </AnchorPane>
               </content>

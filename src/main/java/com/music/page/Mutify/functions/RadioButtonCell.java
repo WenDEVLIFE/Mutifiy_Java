@@ -55,23 +55,30 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
         // This will set the radio button to the cell when the cell is created and will set the action for the radio button
         this.radioButton = new RadioButton();
         this.radioButton.setOnAction(event -> {
-            Music music = getTableView().getItems().get(getIndex());
-            String filePath = music.getFilePath();
-            System.out.println("Radio button clicked for: " + filePath);
             if (radioButton.isSelected()) {
+                Music music = getTableView().getItems().get(getIndex());
+                String filePath = music.getFilePath();
+                String fullTitle  = music.getTitle();
+                String[] parts = fullTitle.split(",");  // Assuming the title and additional info are separated by a comma
 
-                // Play action for the radio button when it is selected and will set the action for the radio button
-                System.out.println("The Set time value is"+ Set_time_music);
-                System.out.println("The value is" + musicplay);
-                System.out.print("The value of setnow"+ SetNowPlaying);
-                System.out.print("The value of volume"+ music_adjustslider);
-                System.out.println(" The value of table"+ Musictable1);
-                System.out.println(" The value of Slider music"+ SLIDERMUSIC);
-                System.out.println(" The value of Slider music1"+ SLIDERMUSIC1);
-                System.out.println(" The value of SetPlaying"+ SetNowPlaying1);
-                System.out.println(" The value of Musicplay1"+ musicplay1);
-                System.out.println(" The value of Set_time_music1"+ Set_time_music1);
-                Mutify_controller.set(music);
+                if (parts.length > 0) {
+                    String title = parts[0].trim();
+                    System.out.println("Title Name: " + title);
+                    System.out.println("Radio button clicked for: " + filePath);
+                    // Play action for the radio button when it is selected and will set the action for the radio button
+                    System.out.println("The Set time value is"+ Set_time_music);
+                    System.out.println("The value is" + musicplay);
+                    System.out.print("The value of setnow"+ SetNowPlaying);
+                    System.out.print("The value of volume"+ music_adjustslider);
+                    System.out.println(" The value of table"+ Musictable1);
+                    System.out.println(" The value of Slider music"+ SLIDERMUSIC);
+                    System.out.println(" The value of Slider music1"+ SLIDERMUSIC1);
+                    System.out.println(" The value of SetPlaying"+ SetNowPlaying1);
+                    System.out.println(" The value of Musicplay1"+ musicplay1);
+                    System.out.println(" The value of Set_time_music1"+ Set_time_music1);
+                    Mutify_controller.set(music,filePath, title);
+                }
+
 
             } else {
                 // Stop action for the radio button when it is not selected and will set the action for the radio button
@@ -161,7 +168,9 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
         if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             mediaPlayer.stop();
             Music music = null;
-            Mutify_controller.set(music);
+            String title = null;
+            String filelocation = null;
+            Mutify_controller.set(music, filelocation, title);
             stopTimeline();
             SetNowPlaying.setText("");
 
