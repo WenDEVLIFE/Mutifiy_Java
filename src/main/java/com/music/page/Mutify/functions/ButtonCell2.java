@@ -5,6 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Files;
+
 public class ButtonCell2 extends TableCell<PlaylistSection, Void> {
     private final Button button;
 
@@ -13,6 +18,7 @@ public class ButtonCell2 extends TableCell<PlaylistSection, Void> {
 
     private static TabPane MusicTabbbedPane;
     private static Tab Music;
+
 
     public ButtonCell2(String action, TableView<PlaylistSection> MusicTable2, ObservableList<PlaylistSection> playlistSection, TabPane MusicTabbbedPane, Tab Music) {
         this.button = new Button(action);
@@ -38,6 +44,10 @@ public class ButtonCell2 extends TableCell<PlaylistSection, Void> {
 
             } else if (action.equals("Delete")) {
                 // Save the playlist to the file before deleting
+               playlistSection.remove(playlist1);
+               MusicTable2.getItems().remove(playlist1);
+
+                saveUpdatedPlaylistToFile(playlistSection);
 
                 System.out.println("Delete button clicked for: " + playlist1.getPlaylistName());
             }
@@ -58,7 +68,25 @@ public class ButtonCell2 extends TableCell<PlaylistSection, Void> {
     public static Callback<TableColumn<PlaylistSection, Void>, TableCell<PlaylistSection, Void>> forTableColumn(String action, ObservableList<PlaylistSection> playlistSection, TableView<PlaylistSection> MusicTable2, TabPane MusicTabbbedPane, Tab Music) {
         return param -> new ButtonCell2(action, MusicTable2, playlistSection , MusicTabbbedPane, Music);
     }
+    // Save the updated playlist to the file
+    private void saveUpdatedPlaylistToFile(ObservableList<PlaylistSection> updatedPlaylist) {
+        try {
+            Path filePath = Path.of("src/main/resources/com/example/mutify_javafx/mymusic1/saved_details.txt");
 
+            try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+                for (PlaylistSection playlist : updatedPlaylist) {
+                    writer.write("Playlist Name: " + playlist.getPlaylistName() + "\n");
+                    writer.write("Music Name: " + playlist.getMusicName() + "\n");
+                    writer.write("File Location: " + playlist.getFileLocation() + "\n\n");
+                }
+            }
+
+            System.out.println("Updated details saved to file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately in your application
+        }
+    }
 
     }
 

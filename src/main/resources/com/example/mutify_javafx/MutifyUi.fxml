@@ -102,6 +102,33 @@
                                         <Font name="Verdana" size="33.0" />
                                     </font>
                                 </Label>
+                        <TableView fx:id="AlbumTable" layoutX="540.0" layoutY="181.0" prefHeight="526.0" prefWidth="630.0" />
+                        <Pane id="panel" layoutX="128.0" layoutY="183.0" prefHeight="522.0" prefWidth="389.0" stylesheets="@scratch.css">
+                           <children>
+                              <Label layoutX="58.0" layoutY="33.0" prefHeight="42.0" prefWidth="273.0" text="Create Albums" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="33.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="123.0" layoutY="460.0" mnemonicParsing="false" onAction="#CreateAlbumAction" prefHeight="37.0" prefWidth="135.0" styleClass="mutifybuttons" stylesheets="@scratch.css" text="ADD ALBUMS" textFill="WHITE">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" glyphName="PLUS" />
+                                 </graphic>
+                              </Button>
+                              <TextField fx:id="Albumfield" layoutX="42.0" layoutY="172.0" prefHeight="50.0" prefWidth="306.0" />
+                              <Label layoutX="48.0" layoutY="116.0" prefHeight="42.0" prefWidth="273.0" text="Album name" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="23.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="artistfield" layoutX="42.0" layoutY="292.0" prefHeight="50.0" prefWidth="306.0" />
+                              <Label layoutX="48.0" layoutY="240.0" prefHeight="42.0" prefWidth="273.0" text="Artist name" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="23.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
                             </children>
                         </AnchorPane>
                     </content>
@@ -175,7 +202,7 @@
                         <Button layoutX="811.0" layoutY="628.0" mnemonicParsing="false" onAction="#gobacktosmallmusic" prefHeight="50.0" prefWidth="71.0" styleClass="buttonlist" stylesheets="@scratch.css" textFill="WHITE" />
                         <Label fx:id="Set_time_music1" layoutX="675.0" layoutY="561.0" prefHeight="25.0" prefWidth="100.0" text="00:00" textFill="WHITE" />
                         <ComboBox fx:id="PlaylistCombox" layoutX="897.0" layoutY="628.0" onAction="#Savepllaylistinfo" prefWidth="150.0" />
-                        <ComboBox fx:id="AlbumCombo" layoutX="897.0" layoutY="666.0" prefWidth="150.0" />
+                        <ComboBox fx:id="AlbumCombo" layoutX="897.0" layoutY="666.0" onAction="#AlbumSelectionAction" prefWidth="150.0" />
                         <Label layoutX="1060.0" layoutY="632.0" text="Add to Playlist" textFill="WHITE" />
                         <Label layoutX="1060.0" layoutY="670.0" text="Add to Albums" textFill="WHITE" />
                      </children>
@@ -200,9 +227,22 @@
                      </children></AnchorPane>
               </content>
             </Tab>
-            <Tab text="AlbumDisplay">
+            <Tab fx:id="AlbumDisplay" text="AlbumDisplay">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="AlbumSelection" layoutX="117.0" layoutY="180.0" prefHeight="536.0" prefWidth="1049.0" />
+                        <Label layoutX="135.0" layoutY="121.0" prefHeight="42.0" prefWidth="259.0" text="Album Name:" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="33.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Albumname" layoutX="369.0" layoutY="121.0" prefHeight="42.0" prefWidth="259.0" text="Null" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="33.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
               </content>
             </Tab>
             </tabs>

@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,6 +54,9 @@ public class Mutify_controller {
     @FXML
     private Tab CreatePlayList;
 
+    @FXML
+    private Tab AlbumDisplay;
+
     // My tabbedPane
     @FXML
     private TabPane MusicTabbbedPane;
@@ -80,12 +84,24 @@ public class Mutify_controller {
     private TableColumn<Music, Boolean> playColumn;
 
 
+    @FXML
+    private TableView<Albums> AlbumTable;
+
+    @FXML
+    private TableView <AlbumSection> AlbumSelection;
+
+
     // This wil Collect the value from the arraylist and store it here
     private static ObservableList <Music> MusicList = FXCollections.observableArrayList();
 
     private  static  ObservableList <Playlist> playlist = FXCollections.observableArrayList();
 
     private  static ObservableList<PlaylistSection> playlistSection = FXCollections.observableArrayList();
+
+    private static ObservableList<Albums> albums = FXCollections.observableArrayList();
+
+    private static ObservableList<AlbumSection> albumSection = FXCollections.observableArrayList();
+
     private RadioButtonCell RadioButtonCell;
     private String currentFilePath;
     // Set the stage when initializing the controller
@@ -125,6 +141,9 @@ public class Mutify_controller {
     @FXML
     private Label PlayListName;
 
+    @FXML
+    private Label Albumname;
+
     private static String store_filelocations;
 
     // This are the textfield
@@ -133,6 +152,12 @@ public class Mutify_controller {
 
     @FXML
     private TextField PlaylistName;
+
+    @FXML
+    private TextField Albumfield;
+
+    @FXML
+    private TextField artistfield;
 
 
     @FXML
@@ -325,6 +350,7 @@ public class Mutify_controller {
         }
     }
 
+
     private void configureFileChooser(FileChooser fileChooser) {
         // Set the title of the file chooser dialog window
         fileChooser.getExtensionFilters().addAll(
@@ -339,11 +365,13 @@ public class Mutify_controller {
     public void initialize() {
         populateComboBox();
         loadPlaylistFromFile();
-
         locationtype.setText(store_filelocations);
         loadlocation();
         loadPlaylistSectionFromFile();
         loadMusicFromFile(store_filelocations);
+        loadAlbumsFromFiles();
+        populateComboBox1();
+        loadAlbumsSectionFromFiles();
         System.out.println("Initializing the table...");
 
         // Initialize the table
@@ -436,7 +464,7 @@ public class Mutify_controller {
 
         TableColumn<PlaylistSection, Void> PlayMusic = new TableColumn<>("Open it on Music Player");
             PlayMusic.setCellFactory(ButtonCell2.forTableColumn("Open it on Music Player", playlistSection,MusicTable2, MusicTabbbedPane, fullscreenMUziket));
-            PlayMusic.setPrefWidth(100);
+            PlayMusic.setPrefWidth(130);
 
         TableColumn<PlaylistSection, Void> DeleteMusic = new TableColumn<>("Delete");
             DeleteMusic.setCellFactory(ButtonCell2.forTableColumn("Delete", playlistSection,MusicTable2, MusicTabbbedPane, fullscreenMUziket));
@@ -444,7 +472,57 @@ public class Mutify_controller {
 
         MusicTable2.getColumns().addAll(PlaylistName1, MusicName, FileLocation, PlayMusic, DeleteMusic);
 
+        // This will initialize the album table
+        TableColumn<Albums, String> AlbumName = new TableColumn<>("AlbumName");
+        AlbumName.setCellValueFactory(cellData -> cellData.getValue().albumNameProperty());
+        AlbumName.setCellFactory(column -> CustomTableCellFactory3.cellFactoryForString(column));
+        AlbumName.setPrefWidth(240);
 
+        TableColumn<Albums, String> ArtistName = new TableColumn<>("ArtistName");
+        ArtistName.setCellValueFactory(cellData -> cellData.getValue().artistNameProperty());
+        ArtistName.setCellFactory(column -> CustomTableCellFactory3.cellFactoryForString(column));
+        ArtistName.setPrefWidth(240);
+
+
+TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
+        DateCreated1.setCellValueFactory(cellData -> cellData.getValue().dateCreatedProperty());
+        DateCreated1.setCellFactory(column -> CustomTableCellFactory3.cellFactoryForString(column));
+
+        TableColumn<Albums, Void> PlayAlbum = new TableColumn<>("Open");
+        PlayAlbum.setCellFactory(ButtonCell3.forTableColumn("Open", albums, AlbumTable, MusicTabbbedPane,AlbumDisplay,Albumname));
+        PlayAlbum.setPrefWidth(50);
+
+        TableColumn<Albums, Void> DeleteAlbum = new TableColumn<>("Delete");
+        DeleteAlbum.setCellFactory(ButtonCell3.forTableColumn("Delete", albums, AlbumTable, MusicTabbbedPane,AlbumDisplay,Albumname));
+        DeleteAlbum.setPrefWidth(50);
+
+        AlbumTable.getColumns().addAll(AlbumName, ArtistName, DateCreated1, PlayAlbum, DeleteAlbum);
+
+
+        // This will initialize the album selection table
+        TableColumn<AlbumSection, String> AlbumName1 = new TableColumn<>("AlbumName");
+        AlbumName1.setCellValueFactory(cellData -> cellData.getValue().albumNameProperty());
+        AlbumName1.setCellFactory(column -> CustomTableCellFactory4.cellFactoryForString(column));
+
+
+        TableColumn<AlbumSection, String> MusicName1 = new TableColumn<>("MusicName");
+        MusicName1.setCellValueFactory(cellData -> cellData.getValue().musicNameProperty());
+        MusicName1.setCellFactory(column -> CustomTableCellFactory4.cellFactoryForString(column));
+
+
+        TableColumn<AlbumSection, String> FileLocation1 = new TableColumn<>("FileLocation");
+        FileLocation1.setCellValueFactory(cellData -> cellData.getValue().fileLocationProperty());
+        FileLocation1.setCellFactory(column -> CustomTableCellFactory4.cellFactoryForString(column));
+
+        TableColumn<AlbumSection, Void> PlayMusic1 = new TableColumn<>("Open it on a music player");
+        PlayMusic1.setCellFactory(ButtonCell4.forTableColumn("Open it on a music player", AlbumSelection, albumSection, MusicTabbbedPane, Music));
+        PlayMusic1.setPrefWidth(120);
+
+        TableColumn<AlbumSection, Void> DeleteMusic1 = new TableColumn<>("Delete");
+        DeleteMusic1.setCellFactory(ButtonCell4.forTableColumn("Delete", AlbumSelection, albumSection, MusicTabbbedPane, Music));
+        DeleteMusic1.setPrefWidth(120);
+
+        AlbumSelection.getColumns().addAll(AlbumName1, MusicName1, FileLocation1, PlayMusic1, DeleteMusic1);
 
     }
 
@@ -655,6 +733,27 @@ public class Mutify_controller {
         // Set the items in the ComboBox
         PlaylistCombox.setItems(playlistNames);
     }
+
+    private void populateComboBox1() {
+        ObservableList<String> AlbumNames = FXCollections.observableArrayList();
+
+        // Read the file and populate the ComboBox with the playlist names
+        try (BufferedReader reader = new BufferedReader(new FileReader("src\\main\\resources\\com\\example\\mutify_javafx\\mymusic1\\Albums.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Assuming each line in the file contains a playlist name
+                String[] parts = line.split(",");
+                if (parts.length > 0) {
+                    AlbumNames.add(parts[0].trim());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();  // Handle the exception appropriately in your application
+        }
+
+        // Set the items in the ComboBox
+        AlbumCombo.setItems(AlbumNames);
+    }
     @FXML
     void Savepllaylistinfo(ActionEvent event) {
         String selectedPlaylistName = PlaylistCombox.getSelectionModel().getSelectedItem();
@@ -664,28 +763,47 @@ public class Mutify_controller {
             Playlist selectedPlaylist = findPlaylistByName(selectedPlaylistName);
 
             if (selectedPlaylist != null) {
-                // Now you have access to the Playlist details
-                String playlistName = selectedPlaylist.getPlaylistName();
-                String musicName = titlemusic;  // Assuming titlemusic is a field in your controller
-                String fileLocation = fielocationsmusic;  // Assuming fielocationsmusic is a field in your controller
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Add Playlist");
+                alert.setContentText("Are you sure you want to add this to playlist?");
 
-                // Implement your save logic here, for example, print the details
-                System.out.println("Saving Playlist Info:");
-                System.out.println("Playlist Name: " + playlistName);
-                System.out.println("Music Name: " + musicName);
-                System.out.println("File Location: " + fileLocation);
-                saveDetailsToFile(playlistName, musicName, fileLocation);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.YES) {
+                    // Now you have access to the Playlist details
+                    String playlistName = selectedPlaylist.getPlaylistName();
+                    String musicName = titlemusic;  // Assuming titlemusic is a field in your controller
+                    String fileLocation = fielocationsmusic;  // Assuming fielocationsmusic is a field in your controller
+
+                    // Implement your save logic here, for example, print the details
+                    System.out.println("Saving Playlist Info:");
+                    System.out.println("Playlist Name: " + playlistName);
+                    System.out.println("Music Name: " + musicName);
+                    System.out.println("File Location: " + fileLocation);
+                    saveDetailsToFile(playlistName, musicName, fileLocation);
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information");
+                    alert.setHeaderText("Playlist Info Saved");
+                    alert.setContentText("Playlist info saved successfully.");
+                    alert.showAndWait();
+                }
+                 else {
+                    // User clicked NO or closed the dialog, do nothing
+
+                }
             }
         }
     }
 
     // Method to find a Playlist by name
     private Playlist findPlaylistByName(String playlistName) {
-        for (Playlist playlist : this.playlist) {
+        for (Playlist playlist : playlist) {
             if (playlist.getPlaylistName().equals(playlistName)) {
                 return playlist;
             }
         }
+        // If the user does not select in return to null
         return null;
     }
 
@@ -744,5 +862,200 @@ public class Mutify_controller {
             e.printStackTrace();
         }
     }
+    @FXML
+    void AlbumSelectionAction(ActionEvent event){
+        String selectedAlbum= AlbumCombo.getSelectionModel().getSelectedItem();
+
+        if (selectedAlbum != null) {
+            // Get the corresponding Playlist object
+            Albums selectedAlbumList = findAlbumname(selectedAlbum);
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Add Album");
+            alert.setContentText("Are you sure you want to add this to album?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                if (selectedAlbumList != null) {
+                    // Now you have access to the Playlist details
+                    String AlbumName = selectedAlbumList.getAlbumName();
+                    String musicName = titlemusic;  // Assuming titlemusic is a field in your controller
+                    String fileLocation = fielocationsmusic;  // Assuming fielocationsmusic is a field in your controller
+
+                    // Implement your save logic here, for example, print the details
+                    System.out.println("Saving Playlist Info:");
+                    System.out.println(selectedAlbumList);
+                    System.out.println(musicName);
+                    System.out.println(fileLocation);
+                    saveDetailsToFile(selectedAlbumList, musicName, fileLocation);
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information");
+                    alert.setHeaderText("Album Info Saved");
+                    alert.setContentText("Album info saved successfully.");
+                    alert.showAndWait();
+
+                }
+            } else {
+                // User clicked NO or closed the dialog, do nothing
+            }
+        }
+    }
+    private void saveDetailsToFile(Albums album, String musicName, String fileLocation) {
+        try {
+            // Specify the file path where details are stored
+            Path detailsFilePath = Paths.get("src/main/resources/com/example/mutify_javafx/mymusic1/saveAlbum.txt");
+
+            // Create or append to the file
+            try (BufferedWriter writer = Files.newBufferedWriter(detailsFilePath, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+                // Write details to the file
+                String line = album.getAlbumName() + "," + musicName + "," + fileLocation;
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately in your application
+        }
+    }
+    private Albums findAlbumname(String  selectedAlbum) {
+        for (Albums albums : albums ) {
+            if (albums .getAlbumName().equals(selectedAlbum)) {
+                return albums ;
+            }
+        }
+        // If the user does not select in return to null
+        return null;
+    }
+    @FXML
+    void CreateAlbumAction(ActionEvent event) {
+        // Get album name, artist name, and current date
+        String albumName = Albumfield.getText();
+        String artistName = artistfield.getText();
+        LocalDate dateCreated = LocalDate.now();
+
+        if (albumName.isEmpty() || artistName.isEmpty()) {
+            // Show an alert if the album name or artist name is empty
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Album Name or Artist Name is Empty");
+            alert.setContentText("Please enter an album name and artist name.");
+            alert.showAndWait();
+        } else {
+            List<Albums> existingAlbums = loadAlbumsFromFile();
+            Albums newAlbum = new Albums(albumName, artistName, dateCreated.toString());
+            existingAlbums.add(newAlbum);
+            saveAlbumsToFile(existingAlbums);
+
+            // Refresh the TableView to reflect the changes
+            AlbumTable.setItems(FXCollections.observableArrayList(existingAlbums));
+
+            // Optionally, you can clear the input fields after adding an album
+            Albumfield.clear();
+            artistfield.clear();
+        }
+    }
+
+    private List<Albums> loadAlbumsFromFile() {
+        List<Albums> albumsList = new ArrayList<>();
+
+        try {
+            // Specify the file path where albums are stored
+            Path filePath = Paths.get("src/main/resources/com/example/mutify_javafx/mymusic1/albums.txt");
+
+            // Read all lines from the file
+            List<String> lines = Files.readAllLines(filePath);
+
+            // Parse each line and create Albums objects
+            for (String line : lines) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    Albums album = new Albums(parts[0], parts[1], parts[2]);
+                    albumsList.add(album);
+
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately in your application
+        }
+        System.out.println("Loaded albums: " + albumsList);
+
+        return albumsList;
+
+    }
+
+    private void saveAlbumsToFile(List<Albums> existingAlbums) {
+        try {
+            // Specify the file path where albums are stored
+            Path filePath = Paths.get("src/main/resources/com/example/mutify_javafx/mymusic1/albums.txt");
+
+            // Create or overwrite the file
+            Files.write(filePath, new ArrayList<>()); // Clear the file content
+
+            // Write each album's information to the file
+            for (Albums album : existingAlbums) {
+                String line = album.getAlbumName() + "," + album.getArtistName() + "," + album.getDateCreated();
+                Files.write(filePath, Collections.singletonList(line), StandardOpenOption.APPEND);
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately in your application
+        }
+    }
+    private void loadAlbumsFromFiles() {
+        List<Albums> albumsList = new ArrayList<>();
+
+        try {
+            // Specify the file path where albums are stored
+            Path filePath = Paths.get("src/main/resources/com/example/mutify_javafx/mymusic1/albums.txt");
+
+            // Read all lines from the file
+            List<String> lines = Files.readAllLines(filePath);
+
+            // Parse each line and create Albums objects
+            for (String line : lines) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    Albums album = new Albums(parts[0], parts[1], parts[2]);
+                    albumsList.add(album);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately in your application
+        }
+
+        // Set the loaded albums to the TableView
+        albums.clear();
+        albums.addAll(albumsList);
+        AlbumTable.setItems(FXCollections.observableArrayList(albums));
+    }
+
+    private void loadAlbumsSectionFromFiles() {
+        List<AlbumSection> albumsSectionList = new ArrayList<>();
+
+        try {
+            // Specify the file path where albums are stored
+            Path filePath = Paths.get("src/main/resources/com/example/mutify_javafx/mymusic1/saveAlbum.txt");
+
+            // Read all lines from the file
+            List<String> lines = Files.readAllLines(filePath);
+
+            // Parse each line and create Albums objects
+            for (String line : lines) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    AlbumSection albumSection1 = new AlbumSection(parts[0], parts[1], parts[2]);
+                    albumsSectionList .add(albumSection1 );
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately in your application
+        }
+
+        // Set the loaded albums to the TableView
+        albumSection.clear();
+        albumSection.addAll(albumsSectionList);
+        AlbumSelection.setItems(FXCollections.observableArrayList(albumSection));
+    }
+
 
 }
