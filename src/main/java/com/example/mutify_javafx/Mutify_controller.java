@@ -94,15 +94,15 @@ public class Mutify_controller {
 
 
     // This wil Collect the value from the arraylist and store it here
-    private static ObservableList <Music> MusicList = FXCollections.observableArrayList();
+    private static final ObservableList <Music> MusicList = FXCollections.observableArrayList();
 
-    private  static  ObservableList <Playlist> playlist = FXCollections.observableArrayList();
+    private  static final ObservableList <Playlist> playlist = FXCollections.observableArrayList();
 
-    private  static ObservableList<PlaylistSection> playlistSection = FXCollections.observableArrayList();
+    private  static final ObservableList<PlaylistSection> playlistSection = FXCollections.observableArrayList();
 
-    private static ObservableList<Albums> albums = FXCollections.observableArrayList();
+    private static final ObservableList<Albums> albums = FXCollections.observableArrayList();
 
-    private static ObservableList<AlbumSection> albumSection = FXCollections.observableArrayList();
+    private static final ObservableList<AlbumSection> albumSection = FXCollections.observableArrayList();
 
     private RadioButtonCell RadioButtonCell;
     private String currentFilePath;
@@ -111,7 +111,7 @@ public class Mutify_controller {
     // This variable will store the music on the radiobuttoncell
     private static Music newMusicVariable;
 
-    private static String fielocationsmusic;
+    private static String fileLocationsMusic;
 
     private static String titlemusic;
 
@@ -219,11 +219,11 @@ private ComboBox<String> SelectThemeLocation;
     public static void set(com.example.mutify_javafx.Music music , String filepath , String title) {
         // This will set the music variable
         newMusicVariable = music;
-        fielocationsmusic = filepath;
+        fileLocationsMusic = filepath;
         titlemusic = title;
 
         System.out.println("The music is set" + newMusicVariable);
-        System.out.println("The music is filelocation" + fielocationsmusic);
+        System.out.println("The music is filelocation" + fileLocationsMusic);
         System.out.println("The music is title" + titlemusic);
 
     }
@@ -459,25 +459,25 @@ private ComboBox<String> SelectThemeLocation;
         // Initialize the table
         titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
-        titleColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        titleColumn.setCellFactory(CustomTableCellFactory::createCenteredStringCell);
         titleColumn.setPrefWidth(200);
         titleColumn.getStyleClass().add("table-row-cel");
 
         artistColumn = new TableColumn<>("Artist");
         artistColumn.setCellValueFactory(cellData -> cellData.getValue().artistProperty());
-        artistColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        artistColumn.setCellFactory(CustomTableCellFactory::createCenteredStringCell);
         artistColumn.setPrefWidth(100);
         artistColumn.getStyleClass().add("table-row-cel");
 
         yearColumn = new TableColumn<>("Year");
         yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty());
-        yearColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        yearColumn.setCellFactory(CustomTableCellFactory::createCenteredStringCell);
         yearColumn.setPrefWidth(130);
         yearColumn.getStyleClass().add("table-row-cel");
 
         TableColumn<Music, String> fileColumn = new TableColumn<>("filepath");
         fileColumn.setCellValueFactory(cellData -> cellData.getValue().filePathProperty());
-        fileColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        fileColumn.setCellFactory(CustomTableCellFactory::createCenteredStringCell);
         fileColumn.setPrefWidth(130);
         fileColumn.getStyleClass().add("table-row-cel");
 
@@ -515,7 +515,7 @@ private ComboBox<String> SelectThemeLocation;
 
         TableColumn<Playlist, String> DateCreated = new TableColumn<>("DateCreated");
         DateCreated.setCellValueFactory(cellData -> cellData.getValue().dateCreatedProperty());
-        DateCreated.setCellFactory(column -> CustomTableCellFactory11.cellFactoryForString(column));
+        DateCreated.setCellFactory(CustomTableCellFactory11::cellFactoryForString);
         DateCreated.setPrefWidth(100);
 
         TableColumn<Playlist, Void> PlayPlaylist = new TableColumn<>("Play");
@@ -531,17 +531,17 @@ private ComboBox<String> SelectThemeLocation;
         // This will initialize the playlist section table
         TableColumn<PlaylistSection, String> PlaylistName1 = new TableColumn<>("PlaylistName");
           PlaylistName1.setCellValueFactory(cellData -> cellData.getValue().playlistNameProperty());
-            PlaylistName1.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
+            PlaylistName1.setCellFactory(CustomTableCellFactory2::cellFactoryForString);
             PlaylistName1.setPrefWidth(200);
 
         TableColumn<PlaylistSection, String> MusicName = new TableColumn<>("MusicName");
             MusicName.setCellValueFactory(cellData -> cellData.getValue().musicNameProperty());
-            MusicName.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
+            MusicName.setCellFactory(CustomTableCellFactory2::cellFactoryForString);
             MusicName.setPrefWidth(200);
 
         TableColumn<PlaylistSection, String> FileLocation = new TableColumn<>("FileLocation");
             FileLocation.setCellValueFactory(cellData -> cellData.getValue().fileLocationProperty());
-            FileLocation.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
+            FileLocation.setCellFactory(CustomTableCellFactory2::cellFactoryForString);
             FileLocation.setPrefWidth(200);
 
         TableColumn<PlaylistSection, Void> PlayMusic = new TableColumn<>("Open it on Music Player");
@@ -557,18 +557,18 @@ private ComboBox<String> SelectThemeLocation;
         // This will initialize the album table
         TableColumn<Albums, String> AlbumName = new TableColumn<>("AlbumName");
         AlbumName.setCellValueFactory(cellData -> cellData.getValue().albumNameProperty());
-        AlbumName.setCellFactory(column -> CustomTableCellFactory3.cellFactoryForString(column));
+        AlbumName.setCellFactory(CustomTableCellFactory3::cellFactoryForString);
         AlbumName.setPrefWidth(240);
 
         TableColumn<Albums, String> ArtistName = new TableColumn<>("ArtistName");
         ArtistName.setCellValueFactory(cellData -> cellData.getValue().artistNameProperty());
-        ArtistName.setCellFactory(column -> CustomTableCellFactory3.cellFactoryForString(column));
+        ArtistName.setCellFactory(CustomTableCellFactory3::cellFactoryForString);
         ArtistName.setPrefWidth(240);
 
 
 TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         DateCreated1.setCellValueFactory(cellData -> cellData.getValue().dateCreatedProperty());
-        DateCreated1.setCellFactory(column -> CustomTableCellFactory3.cellFactoryForString(column));
+        DateCreated1.setCellFactory(CustomTableCellFactory3::cellFactoryForString);
 
         TableColumn<Albums, Void> PlayAlbum = new TableColumn<>("Open");
         PlayAlbum.setCellFactory(ButtonCell3.forTableColumn("Open", albums, AlbumTable, MusicTabbbedPane,AlbumDisplay,Albumname));
@@ -584,17 +584,17 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         // This will initialize the album selection table
         TableColumn<AlbumSection, String> AlbumName1 = new TableColumn<>("AlbumName");
         AlbumName1.setCellValueFactory(cellData -> cellData.getValue().albumNameProperty());
-        AlbumName1.setCellFactory(column -> CustomTableCellFactory4.cellFactoryForString(column));
+        AlbumName1.setCellFactory(CustomTableCellFactory4::cellFactoryForString);
 
 
         TableColumn<AlbumSection, String> MusicName1 = new TableColumn<>("MusicName");
         MusicName1.setCellValueFactory(cellData -> cellData.getValue().musicNameProperty());
-        MusicName1.setCellFactory(column -> CustomTableCellFactory4.cellFactoryForString(column));
+        MusicName1.setCellFactory(CustomTableCellFactory4::cellFactoryForString);
 
 
         TableColumn<AlbumSection, String> FileLocation1 = new TableColumn<>("FileLocation");
         FileLocation1.setCellValueFactory(cellData -> cellData.getValue().fileLocationProperty());
-        FileLocation1.setCellFactory(column -> CustomTableCellFactory4.cellFactoryForString(column));
+        FileLocation1.setCellFactory(CustomTableCellFactory4::cellFactoryForString);
 
         TableColumn<AlbumSection, Void> PlayMusic1 = new TableColumn<>("Open it on a music player");
         PlayMusic1.setCellFactory(ButtonCell4.forTableColumn("Open it on a music player", AlbumSelection, albumSection, MusicTabbbedPane, Music));
@@ -607,12 +607,11 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         AlbumSelection.getColumns().addAll(AlbumName1, MusicName1, FileLocation1, PlayMusic1, DeleteMusic1);
 
         // This will initialize the CSS of the table
-        Musictable1.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-        PlaylistTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-        MusicTable2.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-        AlbumTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-        AlbumSelection.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-
+        Musictable1.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
+        PlaylistTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
+        MusicTable2.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
+        AlbumTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
+        AlbumSelection.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
 
         ObservableList<String> options =
                 FXCollections.observableArrayList(
@@ -621,7 +620,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                         "White Mode"
 
                 );
-// This will initialize the combobox
+        // This will initialize the combobox
         SelectThemeLocation.setItems(options);
 
         System.out.println("Applied Style Classes: " + MusicTabbbedPane.getStyleClass());
@@ -640,8 +639,6 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         // Call the play method
         System.out.println("Play Music");
         RadioButtonCell.playMusic(newMusicVariable);
-
-
     }
 
     @FXML
@@ -874,7 +871,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                     // Now you have access to the Playlist details
                     String playlistName = selectedPlaylist.getPlaylistName();
                     String musicName = titlemusic;  // Assuming titlemusic is a field in your controller
-                    String fileLocation = fielocationsmusic;  // Assuming fielocationsmusic is a field in your controller
+                    String fileLocation = fileLocationsMusic;  // Assuming fielocationsmusic is a field in your controller
 
                     // Implement your save logic here, for example, print the details
                     System.out.println("Saving Playlist Info:");
@@ -982,7 +979,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                     // Now you have access to the Playlist details
                     String AlbumName = selectedAlbumList.getAlbumName();
                     String musicName = titlemusic;  // Assuming titlemusic is a field in your controller
-                    String fileLocation = fielocationsmusic;  // Assuming fielocationsmusic is a field in your controller
+                    String fileLocation = fileLocationsMusic;  // Assuming fielocationsmusic is a field in your controller
 
                     // Implement your save logic here, for example, print the details
                     System.out.println("Saving Playlist Info:");
@@ -1170,7 +1167,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
             MusicTabbbedPane.getStyleClass().add("table-view");
             MusicTabbbedPane.getStyleClass().add("panel");
             MusicTabbbedPane.getStyleClass().add("side_panel");
-            MusicTabbbedPane.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
+            MusicTabbbedPane.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
             applyStylesToTableView1(MusicTabbbedPane, "table-view");
             applyLabelStyleToTabPane1(MusicTabbbedPane, "label1");
         }

@@ -103,8 +103,7 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
     public static void playMusic(Music newMusicVariable) {
          // Implement the method logic here to play the music and update
         // the UI accordingly (e.g. disable/enable buttons) and update the now playing label
-        Music music = newMusicVariable;
-        String filePath = music.getFilePath();
+        String filePath = newMusicVariable.getFilePath();
         System.out.println("Play Music" + filePath);
 
         try {
@@ -115,11 +114,11 @@ public class RadioButtonCell extends TableCell<Music, Boolean> {
 
             stopMusic();
 
-            mediaPlayer = getMediaPlayer(music, file);
+            mediaPlayer = getMediaPlayer(newMusicVariable, file);
             mediaPlayer.play();
-            System.out.println("Playing music: " + music.getTitle());
-            SetNowPlaying.setText("Now Playing:"+music.getTitle());
-            SetNowPlaying1.setText(music.getTitle());
+            System.out.println("Playing music: " + newMusicVariable.getTitle());
+            SetNowPlaying.setText("Now Playing:"+ newMusicVariable.getTitle());
+            SetNowPlaying1.setText(newMusicVariable.getTitle());
             setupTimeline();
 
         } catch (Exception e) {
