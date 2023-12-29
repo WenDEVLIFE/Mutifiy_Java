@@ -396,8 +396,9 @@
     -fx-background-position: left center;
     -fx-background-radius: 16px;
 }
+
 .slider .track {
-    -fx-background-color: linear-gradient(236, 236, 236);
+    -fx-background-color: linear-gradient(to right, #ececec, #BE147F);
 }
 
 /* Thumb (the draggable part) */
