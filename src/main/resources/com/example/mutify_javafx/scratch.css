@@ -90,7 +90,7 @@
 }
 
 .button1:pressed {
-     -fx-background-image: url('src/main/resources/com/example/mutify_javafx/icons/songs_clicked.png');
+     -fx-background-image: url('icons/songs_clicked.png');
      -fx-background-repeat: no-repeat;
      -fx-background-position: center;
     -fx-background-color: transparent;
