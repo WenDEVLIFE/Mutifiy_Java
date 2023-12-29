@@ -6,6 +6,13 @@
     -fx-background-insets: 0 0 0 0;
 
 }
+.root1 {
+ -fx-background-radius: 10 10 0 0;
+  -fx-background-image: url('icons/whitebg.jpg');
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-insets: 0 0 0 0;
+}
 .progress-bar .track {
     -fx-background-color: lightgray;
 }
@@ -14,16 +21,29 @@
 .progress-bar .bar {
     -fx-background-color: #c71585 ;
 }
-#panel {
+.panel {
     -fx-background-color: #1D1D1D;
     /* Upper part of the panel */
     -fx-background-radius: 10 10 0 0;
     /* the inserts are the down part of the panel */
      -fx-background-insets: 0 0 0 0;
 }
-#side_panel {
+.panel2 {
+    -fx-background-color: #EDEADE;
+    /* Upper part of the panel */
+    -fx-background-radius: 10 10 0 0;
+    /* the inserts are the down part of the panel */
+     -fx-background-insets: 0 0 0 0;
+}
+.side_panel {
 
  -fx-background-color: #454545;
+ -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
+}
+
+.side_panel1 {
+
+ -fx-background-color: #F0EAD6;
  -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
 }
 #exit {
@@ -336,6 +356,39 @@
    -fx-background-color: transparent/* Replace with your desired color */
 }
 
+.table-view1 {
+    -fx-background-color: transparent;
+    -fx-padding: 0px;
+    -fx-border-color: linear-gradient(to bottom right, #F9F6EE, #454545);
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+}
+
+.table-view1 .column-header-background {
+    -fx-background-color: #F9F6EE;
+    -fx-background-radius: 8px 8px 0px 0px;
+    -fx-background-inset: 0 0 0 0;
+}
+
+.table-view1 .column-header, .filter {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+
+.table-view1 .column-header .label {
+    -fx-text-fill: #fff;
+    -fx-font-family: "Arial";
+}
+
+/* Customize the background color of the second column cells */
+.table-view1 .table-row-cell table-cell {
+     -fx-background-color: transparent;
+}
+.table-row-cell .table-cell {
+   -fx-background-color: transparent/* Replace with your desired color */
+}
+/*End of tableview CSS*/
+
 .mutifybuttons {
     -fx-background-color: linear-gradient(to right, rgba(227, 61, 148), rgba(160,32,240));
     -fx-background-size: 50px 50px; /* Adjust the width and height as needed */
@@ -350,4 +403,10 @@
 /* Thumb (the draggable part) */
 .slider .thumb {
     -fx-background-color: #ecf0f1;
+}
+.label1 {
+    -fx-text-fill: white; /* Set the default text color */
+}
+.label2 {
+    -fx-text-fill: black; /* Set the default text color */
 }

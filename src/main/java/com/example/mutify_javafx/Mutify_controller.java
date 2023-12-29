@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -166,6 +168,53 @@ public class Mutify_controller {
 
     @FXML
     private ComboBox<String> PlaylistCombox;
+
+@FXML
+private ComboBox<String> SelectThemeLocation;
+
+
+    @FXML
+    private Button MusicButton;
+
+    @FXML
+    private Button PlaylistButton;
+
+    @FXML
+    private Button AlbumButton;
+
+    @FXML
+    private Button SettingButton;
+
+    @FXML
+    private Button Pausebutton;
+
+    @FXML
+    private Button PlayButtonf;
+
+   @FXML
+   private Button ForwardButton;
+
+   @FXML
+   private Button BackwardButton;
+
+   @FXML
+   private Button FullScreenButton;
+
+    @FXML
+    private Button Pausebutton1;
+
+    @FXML
+    private Button PlayButton1;
+
+    @FXML
+    private Button ForwardButton1;
+
+    @FXML
+    private Button BackwardButton1;
+
+    @FXML
+    private Button FullScreenButton1;
+
 
     public static void set(com.example.mutify_javafx.Music music , String filepath , String title) {
         // This will set the music variable
@@ -374,6 +423,39 @@ public class Mutify_controller {
         loadAlbumsSectionFromFiles();
         System.out.println("Initializing the table...");
 
+        SelectThemeLocation.setValue("Select a theme");
+        PlaylistCombox.setValue("Select a playlist");
+        AlbumCombo.setValue("Select an album");
+
+        Tooltip tooltip = new Tooltip("Music");
+        Tooltip tooltip1 = new Tooltip("Playlist");
+        Tooltip tooltip2 = new Tooltip("Album");
+        Tooltip tooltip3 = new Tooltip("Settings");
+        Tooltip tooltip4 = new Tooltip("Play");
+        Tooltip tooltip5 = new Tooltip("Pause");
+        Tooltip tooltip6 = new Tooltip("Forward");
+        Tooltip tooltip7 = new Tooltip("Backward");
+        Tooltip tooltip8 = new Tooltip("Fullscreen");
+        Tooltip tooltip9 = new Tooltip("Small Screen");
+
+
+        MusicButton.setTooltip(tooltip);
+        PlaylistButton.setTooltip(tooltip1);
+        AlbumButton.setTooltip(tooltip2);
+        SettingButton.setTooltip(tooltip3);
+        PlayButtonf.setTooltip(tooltip4);
+        Pausebutton.setTooltip(tooltip5);
+        ForwardButton.setTooltip(tooltip6);
+        BackwardButton.setTooltip(tooltip7);
+        FullScreenButton.setTooltip(tooltip8);
+        FullScreenButton1.setTooltip(tooltip9);
+        PlayButton1.setTooltip(tooltip4);
+        Pausebutton1.setTooltip(tooltip5);
+        ForwardButton1.setTooltip(tooltip6);
+        BackwardButton1.setTooltip(tooltip7);
+
+
+
         // Initialize the table
         titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
@@ -464,11 +546,11 @@ public class Mutify_controller {
 
         TableColumn<PlaylistSection, Void> PlayMusic = new TableColumn<>("Open it on Music Player");
             PlayMusic.setCellFactory(ButtonCell2.forTableColumn("Open it on Music Player", playlistSection,MusicTable2, MusicTabbbedPane, fullscreenMUziket));
-            PlayMusic.setPrefWidth(130);
+            PlayMusic.setPrefWidth(180);
 
         TableColumn<PlaylistSection, Void> DeleteMusic = new TableColumn<>("Delete");
             DeleteMusic.setCellFactory(ButtonCell2.forTableColumn("Delete", playlistSection,MusicTable2, MusicTabbbedPane, fullscreenMUziket));
-            DeleteMusic.setPrefWidth(100);
+            DeleteMusic.setPrefWidth(220);
 
         MusicTable2.getColumns().addAll(PlaylistName1, MusicName, FileLocation, PlayMusic, DeleteMusic);
 
@@ -524,6 +606,25 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
 
         AlbumSelection.getColumns().addAll(AlbumName1, MusicName1, FileLocation1, PlayMusic1, DeleteMusic1);
 
+        // This will initialize the CSS of the table
+        Musictable1.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
+        PlaylistTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
+        MusicTable2.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
+        AlbumTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
+        AlbumSelection.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
+
+
+        ObservableList<String> options =
+                FXCollections.observableArrayList(
+                        "Select an Theme",
+                        "Normal",
+                        "White Mode"
+
+                );
+// This will initialize the combobox
+        SelectThemeLocation.setItems(options);
+
+        System.out.println("Applied Style Classes: " + MusicTabbbedPane.getStyleClass());
     }
 
     // This are the actions on the button play, pause, restart
@@ -1056,6 +1157,166 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         albumSection.addAll(albumsSectionList);
         AlbumSelection.setItems(FXCollections.observableArrayList(albumSection));
     }
+
+    @FXML
+    void ChangeThemeAction (ActionEvent event){
+        String selectThemeName = SelectThemeLocation.getSelectionModel().getSelectedItem();
+
+        // If the user select Normal theme it will set to dark mode
+        if ("Normal".equals(selectThemeName)) {
+            System.out.println("Normal");
+            MusicTabbbedPane.getStyleClass().clear();
+            MusicTabbbedPane.getStyleClass().add("label1");
+            MusicTabbbedPane.getStyleClass().add("table-view");
+            MusicTabbbedPane.getStyleClass().add("panel");
+            MusicTabbbedPane.getStyleClass().add("side_panel");
+            MusicTabbbedPane.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
+            applyStylesToTableView1(MusicTabbbedPane, "table-view");
+            applyLabelStyleToTabPane1(MusicTabbbedPane, "label1");
+        }
+        // Else if the user select White mode it will set to white mode
+        else if ("White Mode".equals(selectThemeName)) {
+            System.out.println("White Mode");
+            MusicTabbbedPane.getStyleClass().clear();  // Clear existing style classes
+            MusicTabbbedPane.getStyleClass().add("root1");
+            MusicTabbbedPane.getStyleClass().add("panel2");
+            MusicTabbbedPane.getStyleClass().add("side_panel1");
+            applyStylesToTableView(MusicTabbbedPane, "table-view1");
+            applyLabelStyleToTabPane(MusicTabbbedPane, "label2");
+        }
+        // Else  the user wont select the changes won't apply
+        else if ("Select a theme".equals(selectThemeName)) {
+            System.out.println("Select a theme");
+        }
+    }
+
+    //Changes the styles
+    private void applyStylesToTableView(TabPane tabPane, String tableStyle) {
+        // Apply the table style to all the tables in the tab pane
+        for (Tab tab : tabPane.getTabs()) {
+            // get also the parent child of the tab content and apply the style to the TableView
+            if (tab.getContent() instanceof Parent) {
+                Parent parent = (Parent) tab.getContent();
+                List<TableView<?>> tableViews = findTableViewsInParent(parent);
+                for (TableView<?> tableView : tableViews) {
+                    tableView.getStyleClass().clear();
+                    tableView.getStyleClass().add(tableStyle);
+                }
+            }
+        }
+    }
+
+    private void applyLabelStyleToTabPane(TabPane tabPane, String labelStyle) {
+        for (Tab tab : tabPane.getTabs()) {
+            if (tab.getContent() instanceof Parent) {
+                Parent parent = (Parent) tab.getContent();
+                List<Label> labels = findLabelsInParent(parent);
+                for (Label label : labels) {
+                    label.getStyleClass().clear();
+                    label.getStyleClass().add(labelStyle);
+                }
+            }
+
+            // Additionally, apply styles to TableView and its columns
+            if (tab.getContent() instanceof TableView) {
+                TableView<?> tableView = (TableView<?>) tab.getContent();
+                tableView.getStyleClass().clear();
+                tableView.getStyleClass().add("table-view1");
+            }
+        }
+    }
+
+    private List<TableView<?>> findTableViewsInParent(Parent parent) {
+        // Find all the TableViews in the parent and its children
+        List<TableView<?>> tableViews = new ArrayList<>();
+        // This will search the node of parent child of the TableViews and add them to the list
+        for (Node node : parent.getChildrenUnmodifiable()) {
+            if (node instanceof TableView) {
+                tableViews.add((TableView<?>) node);
+            } else if (node instanceof Parent) {
+                tableViews.addAll(findTableViewsInParent((Parent) node));
+            }
+        }
+        return tableViews;
+    }
+
+    private List<Label> findLabelsInParent(Parent parent) {
+        // Find all the labels in the parent and its children
+        List<Label> labels = new ArrayList<>();
+        // This will search the node of parent child of the labels and add it to the list
+        for (Node node : parent.getChildrenUnmodifiable()) {
+            if (node instanceof Label) {
+                labels.add((Label) node);
+            } else if (node instanceof Parent) {
+                labels.addAll(findLabelsInParent((Parent) node));
+            }
+        }
+        return labels;
+    }
+
+    // This are for making it back to its normal style
+    private void applyStylesToTableView1(TabPane tabPane, String tableStyle) {
+        // Apply the table style to all the tables in the tab pane
+        for (Tab tab : tabPane.getTabs()) {
+            // get also the parent child of the tab content and apply the style to the TableView
+            if (tab.getContent() instanceof Parent) {
+                Parent parent = (Parent) tab.getContent();
+                List<TableView<?>> tableViews = findTableViewsInParent1(parent);
+                for (TableView<?> tableView : tableViews) {
+                    tableView.getStyleClass().clear();
+                    tableView.getStyleClass().add(tableStyle);
+                }
+            }
+        }
+    }    private void applyLabelStyleToTabPane1(TabPane tabPane, String labelStyle) {
+        for (Tab tab : tabPane.getTabs()) {
+            if (tab.getContent() instanceof Parent) {
+                Parent parent = (Parent) tab.getContent();
+                List<Label> labels = findLabelsInParent1(parent);
+                for (Label label : labels) {
+                    label.getStyleClass().clear();
+                    label.getStyleClass().add(labelStyle);
+                }
+            }
+
+            // Additionally, apply styles to TableView and its columns
+            if (tab.getContent() instanceof TableView) {
+                TableView<?> tableView1 = (TableView<?>) tab.getContent();
+                tableView1.getStyleClass().clear();
+                tableView1.getStyleClass().add("table-view");
+            }
+        }
+    }
+
+    private List<TableView<?>> findTableViewsInParent1(Parent parent) {
+        // Find all the TableViews in the parent and its children
+        List<TableView<?>> tableViews1 = new ArrayList<>();
+        // This will search the node of parent child of the TableViews and add them to the list
+        for (Node node : parent.getChildrenUnmodifiable()) {
+            if (node instanceof TableView) {
+                tableViews1.add((TableView<?>) node);
+            } else if (node instanceof Parent) {
+                tableViews1.addAll(findTableViewsInParent1((Parent) node));
+            }
+        }
+        return tableViews1;
+    }
+
+    private List<Label> findLabelsInParent1(Parent parent) {
+        // Find all the labels in the parent and its children
+        List<Label> labels = new ArrayList<>();
+        // This will search the node of parent child of the labels and add it to the list
+        for (Node node : parent.getChildrenUnmodifiable()) {
+            if (node instanceof Label) {
+                labels.add((Label) node);
+            } else if (node instanceof Parent) {
+                labels.addAll(findLabelsInParent1((Parent) node));
+            }
+        }
+        return labels;
+    }
+
+
 
 
 }
