@@ -9,27 +9,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52a0268c-304c-4712-b7d6-6583233c48c2" name="Changes" comment=":heavy_plus_sign: Add jlayer as maven dependency">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Mutify_JAVAFX_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Reset_at_12_22_2023_3_59_PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Reset_at_12_22_2023_3_59_PM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_22_2023_3_58_PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_22_2023_3_58_PM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_22_2023_4_01_PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_22_2023_4_01_PM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_22_2023_4_04_PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_22_2023_4_04_PM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fontawesomefx-8.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jlayer-1.0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mutify_javafx/Mutify_controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/RadioButtonCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/music/page/Mutify/functions/RadioButtonCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/scratch.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mutify_javafx/scratch.css" afterDir="false" />
+    <list default="true" id="52a0268c-304c-4712-b7d6-6583233c48c2" name="Changes" comment=":wrench: Update workspace.xml">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +201,7 @@
       <workItem from="1703854417018" duration="74000" />
       <workItem from="1703854603360" duration="1191000" />
       <workItem from="1703855816217" duration="399000" />
-      <workItem from="1703856221202" duration="2513000" />
+      <workItem from="1703856221202" duration="3946000" />
     </task>
     <task id="LOCAL-00001" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/compiler.xml&#10;#&#9;.idea/workspace.xml">
       <option name="closed" value="true" />
@@ -270,7 +251,63 @@
       <option name="project" value="LOCAL" />
       <updated>1703856574130</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary=":lipstick: Fix .slider .track  gradient style">
+      <option name="closed" value="true" />
+      <created>1703860023213</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1703860023213</updated>
+    </task>
+    <task id="LOCAL-00008" summary=":fire: Update files">
+      <option name="closed" value="true" />
+      <created>1703860056528</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1703860056528</updated>
+    </task>
+    <task id="LOCAL-00009" summary=":wrench: Add new ide config">
+      <option name="closed" value="true" />
+      <created>1703860091485</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1703860091485</updated>
+    </task>
+    <task id="LOCAL-00010" summary=":bug: Fix background image url relative path">
+      <option name="closed" value="true" />
+      <created>1703860141468</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1703860141468</updated>
+    </task>
+    <task id="LOCAL-00011" summary=":heavy_plus_sign: Add fontawesome dep">
+      <option name="closed" value="true" />
+      <created>1703860169330</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1703860169330</updated>
+    </task>
+    <task id="LOCAL-00012" summary=":fire: Remove unused icons">
+      <option name="closed" value="true" />
+      <created>1703861346313</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1703861346313</updated>
+    </task>
+    <task id="LOCAL-00013" summary=":truck: Rename variables set fields to final">
+      <option name="closed" value="true" />
+      <created>1703861407424</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1703861407424</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,7 +341,15 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value=":arrow_down: Set JDK version to 11 and set javafx deps to 19 for compatibility" />
     <MESSAGE value=":heavy_plus_sign: Add jlayer as maven dependency" />
-    <option name="LAST_COMMIT_MESSAGE" value=":heavy_plus_sign: Add jlayer as maven dependency" />
+    <MESSAGE value=":lipstick: Fix .slider .track  gradient style" />
+    <MESSAGE value=":fire: Update files" />
+    <MESSAGE value=":wrench: Add new ide config" />
+    <MESSAGE value=":bug: Fix background image url relative path" />
+    <MESSAGE value=":heavy_plus_sign: Add fontawesome dep" />
+    <MESSAGE value=":fire: Remove unused icons" />
+    <MESSAGE value=":truck: Rename variables set fields to final" />
+    <MESSAGE value=":wrench: Update workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value=":wrench: Update workspace.xml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
