@@ -27,7 +27,8 @@ Settings
 ![image](https://github.com/WenDEVLIFE/Mutifiy_Java/assets/117834496/f993fc3a-c9da-41ca-b0b0-979c982e2d8d)
 
 
-
+Download the App:
+https://drive.google.com/drive/folders/1PXWSM-GsPzylwj0M2Z2XiFE2muUhQlbo?usp=sharing
 
 
 
