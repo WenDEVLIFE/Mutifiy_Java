@@ -90,7 +90,7 @@
 }
 
 .button1:pressed {
-     -fx-background-image: url('src/main/resources/com/example/mutify_javafx/icons/songs_clicked.png');
+     -fx-background-image: url('icons/songs_clicked.png');
      -fx-background-repeat: no-repeat;
      -fx-background-position: center;
     -fx-background-color: transparent;
@@ -396,8 +396,9 @@
     -fx-background-position: left center;
     -fx-background-radius: 16px;
 }
+
 .slider .track {
-    -fx-background-color: linear-gradient(236, 236, 236);
+    -fx-background-color: linear-gradient(to right, #ececec, #BE147F);
 }
 
 /* Thumb (the draggable part) */

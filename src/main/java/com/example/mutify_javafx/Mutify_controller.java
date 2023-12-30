@@ -26,9 +26,11 @@ import java.util.stream.Collectors;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import lombok.extern.slf4j.Slf4j;
 
 import static com.music.page.Mutify.functions.RadioButtonCell.*;
 
+@Slf4j
 public class Mutify_controller {
 
     // My datatypes and Variables
@@ -69,7 +71,7 @@ public class Mutify_controller {
     private TableView<com.example.mutify_javafx.Music> Musictable1;
 
     @FXML
-    private TableView <PlaylistSection> MusicTable2 ;
+    private TableView<PlaylistSection> MusicTable2;
 
     @FXML
     private TableView<com.example.mutify_javafx.Playlist> PlaylistTable;
@@ -90,19 +92,19 @@ public class Mutify_controller {
     private TableView<Albums> AlbumTable;
 
     @FXML
-    private TableView <AlbumSection> AlbumSelection;
+    private TableView<AlbumSection> AlbumSelection;
 
 
     // This wil Collect the value from the arraylist and store it here
-    private static ObservableList <Music> MusicList = FXCollections.observableArrayList();
+    private static final ObservableList<Music> MusicList = FXCollections.observableArrayList();
 
-    private  static  ObservableList <Playlist> playlist = FXCollections.observableArrayList();
+    private static final ObservableList<Playlist> playlist = FXCollections.observableArrayList();
 
-    private  static ObservableList<PlaylistSection> playlistSection = FXCollections.observableArrayList();
+    private static final ObservableList<PlaylistSection> playlistSection = FXCollections.observableArrayList();
 
-    private static ObservableList<Albums> albums = FXCollections.observableArrayList();
+    private static final ObservableList<Albums> albums = FXCollections.observableArrayList();
 
-    private static ObservableList<AlbumSection> albumSection = FXCollections.observableArrayList();
+    private static final ObservableList<AlbumSection> albumSection = FXCollections.observableArrayList();
 
     private RadioButtonCell RadioButtonCell;
     private String currentFilePath;
@@ -111,23 +113,23 @@ public class Mutify_controller {
     // This variable will store the music on the radiobuttoncell
     private static Music newMusicVariable;
 
-    private static String fielocationsmusic;
+    private static String fileLocationsMusic;
 
     private static String titlemusic;
 
     @FXML
-    private  Slider musicplay;
+    private Slider musicplay;
     @FXML
-    private  Slider musicplay1;
+    private Slider musicplay1;
 
     @FXML
-    private  Slider music_adjustslider;
+    private Slider music_adjustslider;
 
     @FXML
-    private  Slider SLIDERMUSIC;
+    private Slider SLIDERMUSIC;
 
     @FXML
-    private  Slider SLIDERMUSIC1;
+    private Slider SLIDERMUSIC1;
 
     @FXML
     private Label Set_time_music;
@@ -169,8 +171,8 @@ public class Mutify_controller {
     @FXML
     private ComboBox<String> PlaylistCombox;
 
-@FXML
-private ComboBox<String> SelectThemeLocation;
+    @FXML
+    private ComboBox<String> SelectThemeLocation;
 
 
     @FXML
@@ -191,14 +193,14 @@ private ComboBox<String> SelectThemeLocation;
     @FXML
     private Button PlayButtonf;
 
-   @FXML
-   private Button ForwardButton;
+    @FXML
+    private Button ForwardButton;
 
-   @FXML
-   private Button BackwardButton;
+    @FXML
+    private Button BackwardButton;
 
-   @FXML
-   private Button FullScreenButton;
+    @FXML
+    private Button FullScreenButton;
 
     @FXML
     private Button Pausebutton1;
@@ -216,19 +218,15 @@ private ComboBox<String> SelectThemeLocation;
     private Button FullScreenButton1;
 
 
-    public static void set(com.example.mutify_javafx.Music music , String filepath , String title) {
+    public static void set(com.example.mutify_javafx.Music music, String filepath, String title) {
         // This will set the music variable
         newMusicVariable = music;
-        fielocationsmusic = filepath;
+        fileLocationsMusic = filepath;
         titlemusic = title;
-
-        System.out.println("The music is set" + newMusicVariable);
-        System.out.println("The music is filelocation" + fielocationsmusic);
-        System.out.println("The music is title" + titlemusic);
-
+        log.info("The music is set" + newMusicVariable);
+        log.info("The music is filelocation" + fileLocationsMusic);
+        log.info("The music is title" + titlemusic);
     }
-
-
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -238,8 +236,10 @@ private ComboBox<String> SelectThemeLocation;
     void mouseExitFunction(MouseEvent event) {
         // Close the application on a single click
         Platform.exit();
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> saveMusicToFile(store_filelocations)));
-
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            log.info("\n\n|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|- SHUTDOWN -|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|\n\n");
+            saveMusicToFile(store_filelocations);
+        }));
     }
 
     @FXML
@@ -249,13 +249,11 @@ private ComboBox<String> SelectThemeLocation;
 
     }
 
-
     @FXML
         // When it was focus it will turn into read, meaning alert or exit button
     void redalert(MouseEvent event) {
         redpanel.setStyle("-fx-background-color: red; -fx-text-fill: white;");
     }
-
 
     @FXML
         // To restore back to its normal color
@@ -287,7 +285,6 @@ private ComboBox<String> SelectThemeLocation;
     void playlist_action(ActionEvent event) {
         // This will select the playlist tab when the button is clicked on the side panel button action events
         MusicTabbbedPane.getSelectionModel().select(Playlist);
-
     }
 
     @FXML
@@ -301,7 +298,7 @@ private ComboBox<String> SelectThemeLocation;
 
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
-            System.out.println(filePath);
+            log.info(filePath);
             currentFilePath = filePath;
             List<Music> newMusicList = readMusicFromFile(new File(selectedFile.getAbsolutePath()), filePath);
 
@@ -315,18 +312,17 @@ private ComboBox<String> SelectThemeLocation;
     }
 
 
-
     private static MediaPlayer getMediaPlayer(com.example.mutify_javafx.Music music, File file) {
         Media media = new Media(file.toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
 
         mediaPlayer.setOnEndOfMedia(() -> {
-            System.out.println("Music playback completed: " + music.getTitle());
+            log.info("Music playback completed: " + music.getTitle());
             mediaPlayer.dispose(); // Release resources
         });
 
         mediaPlayer.setOnError(() -> {
-            System.out.println("Error during music playback: " + mediaPlayer.getError());
+            log.info("Error during music playback: " + mediaPlayer.getError());
             mediaPlayer.dispose(); // Release resources on error
         });
         return mediaPlayer;
@@ -368,7 +364,7 @@ private ComboBox<String> SelectThemeLocation;
 
             // Write the lines to the file at the specified location
             Files.write(Paths.get(store_filelocations), lines);
-            System.out.println("Music saved to file.");
+            log.info("Music saved to file.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -421,7 +417,7 @@ private ComboBox<String> SelectThemeLocation;
         loadAlbumsFromFiles();
         populateComboBox1();
         loadAlbumsSectionFromFiles();
-        System.out.println("Initializing the table...");
+        log.info("Initializing the table...");
 
         SelectThemeLocation.setValue("Select a theme");
         PlaylistCombox.setValue("Select a playlist");
@@ -455,29 +451,28 @@ private ComboBox<String> SelectThemeLocation;
         BackwardButton1.setTooltip(tooltip7);
 
 
-
         // Initialize the table
         titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
-        titleColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        titleColumn.setCellFactory(CustomTableCellFactory::createCenteredStringCell);
         titleColumn.setPrefWidth(200);
         titleColumn.getStyleClass().add("table-row-cel");
 
         artistColumn = new TableColumn<>("Artist");
         artistColumn.setCellValueFactory(cellData -> cellData.getValue().artistProperty());
-        artistColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        artistColumn.setCellFactory(CustomTableCellFactory::createCenteredStringCell);
         artistColumn.setPrefWidth(100);
         artistColumn.getStyleClass().add("table-row-cel");
 
         yearColumn = new TableColumn<>("Year");
         yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty());
-        yearColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        yearColumn.setCellFactory(CustomTableCellFactory::createCenteredStringCell);
         yearColumn.setPrefWidth(130);
         yearColumn.getStyleClass().add("table-row-cel");
 
         TableColumn<Music, String> fileColumn = new TableColumn<>("filepath");
         fileColumn.setCellValueFactory(cellData -> cellData.getValue().filePathProperty());
-        fileColumn.setCellFactory(column -> CustomTableCellFactory.createCenteredStringCell(column));
+        fileColumn.setCellFactory(CustomTableCellFactory::createCenteredStringCell);
         fileColumn.setPrefWidth(130);
         fileColumn.getStyleClass().add("table-row-cel");
 
@@ -498,7 +493,7 @@ private ComboBox<String> SelectThemeLocation;
         playColumn.getStyleClass().add("table-row-cel");
 
         TableColumn<Music, Void> deleteColumn = new TableColumn<>("Delete");
-        deleteColumn.setCellFactory(ButtonCell.forTableColumn("Delete", MusicList, Musictable1,store_filelocations));
+        deleteColumn.setCellFactory(ButtonCell.forTableColumn("Delete", MusicList, Musictable1, store_filelocations));
         deleteColumn.setPrefWidth(100);
         deleteColumn.getStyleClass().add("table-row-cel");
 
@@ -515,67 +510,67 @@ private ComboBox<String> SelectThemeLocation;
 
         TableColumn<Playlist, String> DateCreated = new TableColumn<>("DateCreated");
         DateCreated.setCellValueFactory(cellData -> cellData.getValue().dateCreatedProperty());
-        DateCreated.setCellFactory(column -> CustomTableCellFactory11.cellFactoryForString(column));
+        DateCreated.setCellFactory(CustomTableCellFactory11::cellFactoryForString);
         DateCreated.setPrefWidth(100);
 
         TableColumn<Playlist, Void> PlayPlaylist = new TableColumn<>("Play");
-        PlayPlaylist.setCellFactory(ButtonCell1.forTableColumn("Play", playlist,PlaylistTable, PlayListName, CreatePlayList, MusicTabbbedPane));
+        PlayPlaylist.setCellFactory(ButtonCell1.forTableColumn("Play", playlist, PlaylistTable, PlayListName, CreatePlayList, MusicTabbbedPane));
         PlayPlaylist.setPrefWidth(140);
 
         TableColumn<Playlist, Void> DeletePlaylist = new TableColumn<>("Delete");
-        DeletePlaylist.setCellFactory(ButtonCell1.forTableColumn("Delete", playlist,PlaylistTable,PlayListName, CreatePlayList, MusicTabbbedPane));
+        DeletePlaylist.setCellFactory(ButtonCell1.forTableColumn("Delete", playlist, PlaylistTable, PlayListName, CreatePlayList, MusicTabbbedPane));
         DeletePlaylist.setPrefWidth(140);
 
         PlaylistTable.getColumns().addAll(PlaylistName, DateCreated, PlayPlaylist, DeletePlaylist);
 
         // This will initialize the playlist section table
         TableColumn<PlaylistSection, String> PlaylistName1 = new TableColumn<>("PlaylistName");
-          PlaylistName1.setCellValueFactory(cellData -> cellData.getValue().playlistNameProperty());
-            PlaylistName1.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
-            PlaylistName1.setPrefWidth(200);
+        PlaylistName1.setCellValueFactory(cellData -> cellData.getValue().playlistNameProperty());
+        PlaylistName1.setCellFactory(CustomTableCellFactory2::cellFactoryForString);
+        PlaylistName1.setPrefWidth(200);
 
         TableColumn<PlaylistSection, String> MusicName = new TableColumn<>("MusicName");
-            MusicName.setCellValueFactory(cellData -> cellData.getValue().musicNameProperty());
-            MusicName.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
-            MusicName.setPrefWidth(200);
+        MusicName.setCellValueFactory(cellData -> cellData.getValue().musicNameProperty());
+        MusicName.setCellFactory(CustomTableCellFactory2::cellFactoryForString);
+        MusicName.setPrefWidth(200);
 
         TableColumn<PlaylistSection, String> FileLocation = new TableColumn<>("FileLocation");
-            FileLocation.setCellValueFactory(cellData -> cellData.getValue().fileLocationProperty());
-            FileLocation.setCellFactory(column -> CustomTableCellFactory2.cellFactoryForString(column));
-            FileLocation.setPrefWidth(200);
+        FileLocation.setCellValueFactory(cellData -> cellData.getValue().fileLocationProperty());
+        FileLocation.setCellFactory(CustomTableCellFactory2::cellFactoryForString);
+        FileLocation.setPrefWidth(200);
 
         TableColumn<PlaylistSection, Void> PlayMusic = new TableColumn<>("Open it on Music Player");
-            PlayMusic.setCellFactory(ButtonCell2.forTableColumn("Open it on Music Player", playlistSection,MusicTable2, MusicTabbbedPane, fullscreenMUziket));
-            PlayMusic.setPrefWidth(180);
+        PlayMusic.setCellFactory(ButtonCell2.forTableColumn("Open it on Music Player", playlistSection, MusicTable2, MusicTabbbedPane, fullscreenMUziket));
+        PlayMusic.setPrefWidth(180);
 
         TableColumn<PlaylistSection, Void> DeleteMusic = new TableColumn<>("Delete");
-            DeleteMusic.setCellFactory(ButtonCell2.forTableColumn("Delete", playlistSection,MusicTable2, MusicTabbbedPane, fullscreenMUziket));
-            DeleteMusic.setPrefWidth(220);
+        DeleteMusic.setCellFactory(ButtonCell2.forTableColumn("Delete", playlistSection, MusicTable2, MusicTabbbedPane, fullscreenMUziket));
+        DeleteMusic.setPrefWidth(220);
 
         MusicTable2.getColumns().addAll(PlaylistName1, MusicName, FileLocation, PlayMusic, DeleteMusic);
 
         // This will initialize the album table
         TableColumn<Albums, String> AlbumName = new TableColumn<>("AlbumName");
         AlbumName.setCellValueFactory(cellData -> cellData.getValue().albumNameProperty());
-        AlbumName.setCellFactory(column -> CustomTableCellFactory3.cellFactoryForString(column));
+        AlbumName.setCellFactory(CustomTableCellFactory3::cellFactoryForString);
         AlbumName.setPrefWidth(240);
 
         TableColumn<Albums, String> ArtistName = new TableColumn<>("ArtistName");
         ArtistName.setCellValueFactory(cellData -> cellData.getValue().artistNameProperty());
-        ArtistName.setCellFactory(column -> CustomTableCellFactory3.cellFactoryForString(column));
+        ArtistName.setCellFactory(CustomTableCellFactory3::cellFactoryForString);
         ArtistName.setPrefWidth(240);
 
 
-TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
+        TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         DateCreated1.setCellValueFactory(cellData -> cellData.getValue().dateCreatedProperty());
-        DateCreated1.setCellFactory(column -> CustomTableCellFactory3.cellFactoryForString(column));
+        DateCreated1.setCellFactory(CustomTableCellFactory3::cellFactoryForString);
 
         TableColumn<Albums, Void> PlayAlbum = new TableColumn<>("Open");
-        PlayAlbum.setCellFactory(ButtonCell3.forTableColumn("Open", albums, AlbumTable, MusicTabbbedPane,AlbumDisplay,Albumname));
+        PlayAlbum.setCellFactory(ButtonCell3.forTableColumn("Open", albums, AlbumTable, MusicTabbbedPane, AlbumDisplay, Albumname));
         PlayAlbum.setPrefWidth(50);
 
         TableColumn<Albums, Void> DeleteAlbum = new TableColumn<>("Delete");
-        DeleteAlbum.setCellFactory(ButtonCell3.forTableColumn("Delete", albums, AlbumTable, MusicTabbbedPane,AlbumDisplay,Albumname));
+        DeleteAlbum.setCellFactory(ButtonCell3.forTableColumn("Delete", albums, AlbumTable, MusicTabbbedPane, AlbumDisplay, Albumname));
         DeleteAlbum.setPrefWidth(50);
 
         AlbumTable.getColumns().addAll(AlbumName, ArtistName, DateCreated1, PlayAlbum, DeleteAlbum);
@@ -584,17 +579,17 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         // This will initialize the album selection table
         TableColumn<AlbumSection, String> AlbumName1 = new TableColumn<>("AlbumName");
         AlbumName1.setCellValueFactory(cellData -> cellData.getValue().albumNameProperty());
-        AlbumName1.setCellFactory(column -> CustomTableCellFactory4.cellFactoryForString(column));
+        AlbumName1.setCellFactory(CustomTableCellFactory4::cellFactoryForString);
 
 
         TableColumn<AlbumSection, String> MusicName1 = new TableColumn<>("MusicName");
         MusicName1.setCellValueFactory(cellData -> cellData.getValue().musicNameProperty());
-        MusicName1.setCellFactory(column -> CustomTableCellFactory4.cellFactoryForString(column));
+        MusicName1.setCellFactory(CustomTableCellFactory4::cellFactoryForString);
 
 
         TableColumn<AlbumSection, String> FileLocation1 = new TableColumn<>("FileLocation");
         FileLocation1.setCellValueFactory(cellData -> cellData.getValue().fileLocationProperty());
-        FileLocation1.setCellFactory(column -> CustomTableCellFactory4.cellFactoryForString(column));
+        FileLocation1.setCellFactory(CustomTableCellFactory4::cellFactoryForString);
 
         TableColumn<AlbumSection, Void> PlayMusic1 = new TableColumn<>("Open it on a music player");
         PlayMusic1.setCellFactory(ButtonCell4.forTableColumn("Open it on a music player", AlbumSelection, albumSection, MusicTabbbedPane, Music));
@@ -607,12 +602,11 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         AlbumSelection.getColumns().addAll(AlbumName1, MusicName1, FileLocation1, PlayMusic1, DeleteMusic1);
 
         // This will initialize the CSS of the table
-        Musictable1.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-        PlaylistTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-        MusicTable2.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-        AlbumTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-        AlbumSelection.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
-
+        Musictable1.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
+        PlaylistTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
+        MusicTable2.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
+        AlbumTable.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
+        AlbumSelection.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
 
         ObservableList<String> options =
                 FXCollections.observableArrayList(
@@ -621,55 +615,54 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                         "White Mode"
 
                 );
-// This will initialize the combobox
+        // This will initialize the combobox
         SelectThemeLocation.setItems(options);
 
-        System.out.println("Applied Style Classes: " + MusicTabbbedPane.getStyleClass());
+        log.info("Applied Style Classes: " + MusicTabbbedPane.getStyleClass());
     }
 
     // This are the actions on the button play, pause, restart
     @FXML
     void Pause_action(ActionEvent event) {
         // Call the pause method
-        System.out.println("Pause Music");
+        log.info("Pause Music");
         handlePlayPauseButton();
     }
 
     @FXML
     void Play_Action(ActionEvent event) {
         // Call the play method
-        System.out.println("Play Music");
+        log.info("Play Music");
         RadioButtonCell.playMusic(newMusicVariable);
-
-
     }
 
     @FXML
     void backwardfunction(ActionEvent event) {
         // Call the backward method
-        System.out.println("Back-ward");
+        log.info("Back-ward");
         backward();
     }
 
     @FXML
     void fowardfunction(ActionEvent event) {
-        System.out.println("Forward");
+        log.info("Forward");
 
-            // Call the forward method
-            forward();
+        // Call the forward method
+        forward();
 
     }
+
     @FXML
-    void fullscreenmusic (ActionEvent event) {
+    void fullscreenmusic(ActionEvent event) {
         //This will open the fullscreen music
-        System.out.println("Fullscreen1");
+        log.info("Fullscreen1");
         MusicTabbbedPane.getSelectionModel().select(fullscreenMUziket);
-
     }
+
     @FXML
-    void gobacktosmallmusic (ActionEvent event) {
+    void gobacktosmallmusic(ActionEvent event) {
         //This will open the fullscreen music
-        System.out.println("Fullscreen2");
+        log.info("Fullscreen2");
         MusicTabbbedPane.getSelectionModel().select(Music);
 
 
@@ -688,7 +681,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
             alert.setContentText("Please enter a playlist name.");
             alert.showAndWait();
         } else {
-             // make sure you have this filter so that it wont ruin your table display
+            // make sure you have this filter so that it wont ruin your table display
             // Read the existing playlist, add the new entry, and update both the TableView and file
             List<Playlist> existingPlaylist = loadPlaylistFromFile();
             Playlist newPlaylist = new Playlist(playlistName, dateCreated.toString());
@@ -742,12 +735,11 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                     .collect(Collectors.toList());
 
             Files.write(Paths.get(filepath), lines);
-            System.out.println("Playlist saved to file.");
+            log.info("Playlist saved to file.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 
     @FXML
@@ -764,8 +756,8 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
             String fileName = selectedFile.getName();
 
             // Perform actions with filePath and fileName as needed
-            System.out.println("Selected File Path: " + filePath);
-            System.out.println("Selected File Name: " + fileName);
+            log.info("Selected File Path: " + filePath);
+            log.info("Selected File Name: " + fileName);
 
             // Update store_filelocations
             store_filelocations = filePath;
@@ -780,17 +772,17 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
 
     private void updateSrcFile(String fileName, String fileLocation) {
         // Update the src.txt file with the new file information
-        File srcFile = new File("src/main/resources/com/example/mutify_javafx/mymusic1/src.txt");
+        File srcFile = new File("src/main/resources/com/example/mutify_javafx/mymusic1/music2.txt");
 
         try (PrintWriter writer = new PrintWriter(srcFile)) {
             writer.println(fileLocation);
-            System.out.println("Updated src.txt file with new information");
+            log.info("Updated src.txt file with new information");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-     public void loadlocation() {
+    public void loadlocation() {
         // This will load the file location from the src.txt file
         File srcFile = new File("src/main/resources/com/example/mutify_javafx/mymusic1/src.txt");
 
@@ -807,17 +799,16 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         }
     }
 
-    public static void flush_music(com.example.mutify_javafx.Music finalMusic){
-       // This will flush the music  variable
+    public static void flush_music(com.example.mutify_javafx.Music finalMusic) {
+        // This will flush the music  variable
         newMusicVariable = finalMusic;
-
-        System.out.println("The music is flush");
+        log.info("The music is flush");
     }
 
     private void populateComboBox() {
         ObservableList<String> playlistNames = FXCollections.observableArrayList();
 
-               // Read the file and populate the ComboBox with the playlist names
+        // Read the file and populate the ComboBox with the playlist names
         try (BufferedReader reader = new BufferedReader(new FileReader("src\\main\\resources\\com\\example\\mutify_javafx\\mymusic1\\playlist.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -855,6 +846,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         // Set the items in the ComboBox
         AlbumCombo.setItems(AlbumNames);
     }
+
     @FXML
     void Savepllaylistinfo(ActionEvent event) {
         String selectedPlaylistName = PlaylistCombox.getSelectionModel().getSelectedItem();
@@ -874,13 +866,13 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                     // Now you have access to the Playlist details
                     String playlistName = selectedPlaylist.getPlaylistName();
                     String musicName = titlemusic;  // Assuming titlemusic is a field in your controller
-                    String fileLocation = fielocationsmusic;  // Assuming fielocationsmusic is a field in your controller
+                    String fileLocation = fileLocationsMusic;  // Assuming fielocationsmusic is a field in your controller
 
                     // Implement your save logic here, for example, print the details
-                    System.out.println("Saving Playlist Info:");
-                    System.out.println("Playlist Name: " + playlistName);
-                    System.out.println("Music Name: " + musicName);
-                    System.out.println("File Location: " + fileLocation);
+                    log.info("Saving Playlist Info:");
+                    log.info("Playlist Name: " + playlistName);
+                    log.info("Music Name: " + musicName);
+                    log.info("File Location: " + fileLocation);
                     saveDetailsToFile(playlistName, musicName, fileLocation);
 
                     alert = new Alert(Alert.AlertType.INFORMATION);
@@ -888,8 +880,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                     alert.setHeaderText("Playlist Info Saved");
                     alert.setContentText("Playlist info saved successfully.");
                     alert.showAndWait();
-                }
-                 else {
+                } else {
                     // User clicked NO or closed the dialog, do nothing
 
                 }
@@ -921,12 +912,11 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                 writer.write("File Location: " + fileLocation + "\n\n");
             }
 
-            System.out.println("Details saved to file.");
+            log.info("Details saved to file.");
         } catch (IOException e) {
             e.printStackTrace();  // Handle the exception appropriately in your application
         }
     }
-
 
 
     public void loadPlaylistSectionFromFile() {
@@ -963,9 +953,10 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
             e.printStackTrace();
         }
     }
+
     @FXML
-    void AlbumSelectionAction(ActionEvent event){
-        String selectedAlbum= AlbumCombo.getSelectionModel().getSelectedItem();
+    void AlbumSelectionAction(ActionEvent event) {
+        String selectedAlbum = AlbumCombo.getSelectionModel().getSelectedItem();
 
         if (selectedAlbum != null) {
             // Get the corresponding Playlist object
@@ -982,13 +973,13 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                     // Now you have access to the Playlist details
                     String AlbumName = selectedAlbumList.getAlbumName();
                     String musicName = titlemusic;  // Assuming titlemusic is a field in your controller
-                    String fileLocation = fielocationsmusic;  // Assuming fielocationsmusic is a field in your controller
+                    String fileLocation = fileLocationsMusic;  // Assuming fielocationsmusic is a field in your controller
 
                     // Implement your save logic here, for example, print the details
-                    System.out.println("Saving Playlist Info:");
-                    System.out.println(selectedAlbumList);
-                    System.out.println(musicName);
-                    System.out.println(fileLocation);
+                    log.info("Saving Playlist Info:");
+                    log.info(String.valueOf(selectedAlbumList));
+                    log.info(musicName);
+                    log.info(fileLocation);
                     saveDetailsToFile(selectedAlbumList, musicName, fileLocation);
 
                     alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1003,6 +994,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
             }
         }
     }
+
     private void saveDetailsToFile(Albums album, String musicName, String fileLocation) {
         try {
             // Specify the file path where details are stored
@@ -1019,15 +1011,17 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
             e.printStackTrace(); // Handle the exception appropriately in your application
         }
     }
-    private Albums findAlbumname(String  selectedAlbum) {
-        for (Albums albums : albums ) {
-            if (albums .getAlbumName().equals(selectedAlbum)) {
-                return albums ;
+
+    private Albums findAlbumname(String selectedAlbum) {
+        for (Albums albums : albums) {
+            if (albums.getAlbumName().equals(selectedAlbum)) {
+                return albums;
             }
         }
         // If the user does not select in return to null
         return null;
     }
+
     @FXML
     void CreateAlbumAction(ActionEvent event) {
         // Get album name, artist name, and current date
@@ -1079,7 +1073,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         } catch (IOException e) {
             e.printStackTrace(); // Handle the exception appropriately in your application
         }
-        System.out.println("Loaded albums: " + albumsList);
+        log.info("Loaded albums: " + albumsList);
 
         return albumsList;
 
@@ -1102,6 +1096,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
             e.printStackTrace(); // Handle the exception appropriately in your application
         }
     }
+
     private void loadAlbumsFromFiles() {
         List<Albums> albumsList = new ArrayList<>();
 
@@ -1145,7 +1140,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                 String[] parts = line.split(",");
                 if (parts.length == 3) {
                     AlbumSection albumSection1 = new AlbumSection(parts[0], parts[1], parts[2]);
-                    albumsSectionList .add(albumSection1 );
+                    albumsSectionList.add(albumSection1);
                 }
             }
         } catch (IOException e) {
@@ -1159,24 +1154,24 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
     }
 
     @FXML
-    void ChangeThemeAction (ActionEvent event){
+    void ChangeThemeAction(ActionEvent event) {
         String selectThemeName = SelectThemeLocation.getSelectionModel().getSelectedItem();
 
         // If the user select Normal theme it will set to dark mode
         if ("Normal".equals(selectThemeName)) {
-            System.out.println("Normal");
+            log.info("Normal");
             MusicTabbbedPane.getStyleClass().clear();
             MusicTabbbedPane.getStyleClass().add("label1");
             MusicTabbbedPane.getStyleClass().add("table-view");
             MusicTabbbedPane.getStyleClass().add("panel");
             MusicTabbbedPane.getStyleClass().add("side_panel");
-            MusicTabbbedPane.getStylesheets().add("src/main/resources/com/example/mutify_javafx/mymusic1/scratch.css");
+            MusicTabbbedPane.getStylesheets().add("src/main/resources/com/example/mutify_javafx/scratch.css");
             applyStylesToTableView1(MusicTabbbedPane, "table-view");
             applyLabelStyleToTabPane1(MusicTabbbedPane, "label1");
         }
         // Else if the user select White mode it will set to white mode
         else if ("White Mode".equals(selectThemeName)) {
-            System.out.println("White Mode");
+            log.info("White Mode");
             MusicTabbbedPane.getStyleClass().clear();  // Clear existing style classes
             MusicTabbbedPane.getStyleClass().add("root1");
             MusicTabbbedPane.getStyleClass().add("panel2");
@@ -1186,7 +1181,7 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         }
         // Else  the user wont select the changes won't apply
         else if ("Select a theme".equals(selectThemeName)) {
-            System.out.println("Select a theme");
+            log.info("Select a theme");
         }
     }
 
@@ -1268,7 +1263,9 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
                 }
             }
         }
-    }    private void applyLabelStyleToTabPane1(TabPane tabPane, String labelStyle) {
+    }
+
+    private void applyLabelStyleToTabPane1(TabPane tabPane, String labelStyle) {
         for (Tab tab : tabPane.getTabs()) {
             if (tab.getContent() instanceof Parent) {
                 Parent parent = (Parent) tab.getContent();
@@ -1315,8 +1312,6 @@ TableColumn<Albums, String> DateCreated1 = new TableColumn<>("DateCreated");
         }
         return labels;
     }
-
-
 
 
 }

@@ -34,8 +34,6 @@ public class Main extends Application {
             Main_Controller controller = fxmlLoader.getController();
             controller.setStage(stage);
             controller.fill();
-
-            System.gc();
         } catch (Exception e) {
             e.printStackTrace();
         }
