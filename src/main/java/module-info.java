@@ -2,6 +2,10 @@ module com.example.mutify_javafx {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires slf4j.api;
+    requires logback.core;
+    requires logback.classic;
+    requires lombok;
 
     requires org.controlsfx.controls;
     requires net.synedra.validatorfx;
